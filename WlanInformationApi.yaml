@@ -1,5 +1,7 @@
 openapi: 3.0.0
 info:
+  contact:
+    url: https://forge.etsi.org/rep/mec/gs028-wai-api
   title: ETSI GS MEC 028 - WLAN Access Information API
   version: 2.1.1
   description: The ETSI MEC ISG MEC028 WLAN Access Information API described using OpenAPI
@@ -10,13 +12,15 @@ externalDocs:
   description: ETSI MEC028 V2.1.1 WLAN Information API
   url: 'http://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.01.01_60/gs_mec028v020101p.pdf'
 servers:
-  - url: 'https://{apiRoot}/wai/v2'
+  - url: 'https://localhost/wai/v2'
+tags:
+- name: "wai"
 paths:
   /queries/ap/ap_information:
     get:
       tags:
-      - ''
-      summary: 'Retrieve information on existing Access Points' 
+      - 'wai'
+      summary: 'Retrieve information on existing Access Points'
       description: 'Queries information about existing WLAN Access Points'
       operationId: apInfoGET
       parameters:
@@ -52,7 +56,7 @@ paths:
   /queries/sta/sta_information:
     get:
       tags:
-      - ''
+      - 'wai'
       summary: 'Retrieve information on existing Stations'
       description: 'Queries information about existing WLAN stations'
       operationId: staInfoGET
@@ -86,10 +90,10 @@ paths:
           $ref: '#/components/responses/406'
         '429':
           $ref: '#/components/responses/429'
-  /subscriptions/:
+  /subscriptions:
     get:
       tags:
-      - ''
+      - 'wai'
       summary: 'Retrieve information on subscriptions for notifications'
       description: 'Queries information on subscriptions for notifications'
       operationId: subscriptionLinkList_subscriptionsGET
@@ -132,7 +136,7 @@ paths:
           $ref: '#/components/responses/429'
     post:
       tags:
-      - ''
+      - 'wai'
       summary: 'Create a new subscription'
       description: 'Creates a new subscription to WLAN Access Information notifications'
       operationId: subscriptionsPOST
@@ -158,7 +162,7 @@ paths:
                     seconds: 1977836800
                     nanoSeconds: 0
                   apId:
-                    macId: 005C0A0A0A0A                    
+                    macId: 005C0A0A0A0A
                     ssid: 'myNetworkSsid'
                     ipAddress: 10.10.100.1
       responses:
@@ -212,7 +216,7 @@ paths:
               summary: 'Callback POST used to send a notification'
               description: 'Notification from WAIS, content based on subscription type'
               operationId: notificationPOST
-              requestBody: 
+              requestBody:
                 description: Subscription notification
                 required: true
                 content:
@@ -233,12 +237,12 @@ paths:
                             seconds: 1977836800
                             nanoseconds: 0
                           apId:
-                            macId: 005C0A0A0A0A                    
+                            macId: 005C0A0A0A0A
                             ssid: 'myNetworkSsid'
                             ipAddress: 10.10.100.1
                           staId:
                             macId: 005C01111111
-                            ssid: 
+                            ssid:
                             - 'myNetworkSsid'
                             - 'myOtherNetworkSsid'
                             aid: '1122'
@@ -249,7 +253,7 @@ paths:
   '/subscriptions/{subscriptionId}':
     get:
       tags:
-      - ''
+      - 'wai'
       summary: 'Retrieve information on current specific subscription'
       description: 'Queries information about an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       operationId: subscriptionsGET
@@ -299,7 +303,7 @@ paths:
           $ref: '#/components/responses/429'
     put:
       tags:
-      - ''
+      - 'wai'
       summary: 'Modify an existing subscription'
       description: 'Updates an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       operationId: subscriptionsPUT
@@ -373,7 +377,7 @@ paths:
           $ref: '#/components/responses/429'
     delete:
       tags:
-      - ''
+      - 'wai'
       summary: 'Cancel an existing subscription'
       description: 'Cancels an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       operationId: subscriptionsDELETE
@@ -404,7 +408,7 @@ components:
             type: object
             properties:
               problemDetails:
-                $ref: '#/components/schemas/ProblemDetails'  
+                $ref: '#/components/schemas/ProblemDetails'
     401:
       description: 'Unauthorized :  used when the client did not submit credentials.'
       content:
@@ -414,7 +418,7 @@ components:
             properties:
               problemDetails:
                 $ref: '#/components/schemas/ProblemDetails'
-    403:                
+    403:
       description: 'Forbidden :  operation is not allowed given the current status of the resource.'
       content:
         application/json:
@@ -517,7 +521,7 @@ components:
     Query.Fields:
       name: fields
       in: query
-      description: Complex attributes to be included into the response. See clause 6.18 of ETSI GS MEC 009 for details. 
+      description: Complex attributes to be included into the response. See clause 6.18 of ETSI GS MEC 009 for details.
       required: false
       schema:
         type: array
@@ -554,8 +558,7 @@ components:
     ApAssociated:
       properties:
         assocId:
-          description: Unique number which identifies a particular association between
-            the station and Access Point.
+          description: Unique number which identifies a particular association between the station and Access Point.
           type: string
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: string
@@ -568,9 +571,7 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: string
         macId:
-          description: Unique identifier assigned to the Access Point (as network
-            interface controller) for communications at the data link layer of a network
-            segment.
+          description: Unique identifier assigned to the Access Point (as network interface controller) for communications at the data link layer of a network segment.
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: string
@@ -597,14 +598,12 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: String
         macId:
-          description: Unique Identifier assigned to an Access Point (as network interface
-            controller) for communications at the data link layer of a network segment.
+          description: Unique Identifier assigned to an Access Point (as network interface controller) for communications at the data link layer of a network segment.
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
         ssid:
-          description: Service Set Identifier to identify logical networks including
-            Basic Service Set and Extended Service Set.
+          description: Service Set Identifier to identify logical networks including Basic Service Set and Extended Service Set.
           items:
             type: string
           minItems: 0
@@ -618,66 +617,51 @@ components:
     ApInfo:
       properties:
         apId:
-          allOf:
-          - $ref: '#/components/schemas/ApIdentity'
-          - description: Identifier(s) to uniquely specify the Access Point whose information is exposed within this data type.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: ApIdentity
+          # description': Identifier(s) to uniquely specify the Access Point whose information is exposed within this data type.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': ApIdentity
+          $ref: '#/components/schemas/ApIdentity'
         apLocation:
-          allOf:
-          - $ref: '#/components/schemas/ApLocation'
-          - description: The location on the Access Point.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: ApLocation
+          # description': The location on the Access Point.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': ApLocation
+          $ref: '#/components/schemas/ApLocation'
         apNeighbor:
-          allOf:
-          - $ref: '#/components/schemas/NeighborReport'
-          - description: Information about neighbor Access Points.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: NeighborReport
+          # description': Information about neighbor Access Points.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': NeighborReport
+          $ref: '#/components/schemas/NeighborReport'
         bssLoad:
-          allOf:
-          - $ref: '#/components/schemas/BssLoad'
-          - description: "BSS Load attribute contains information on the current STA\
-            \ population and traffic levels in the BSS as defined in IEEE\_802.11-2016\
-            \ [8]."
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: BssLoad
+          # description': BSS Load attribute contains information on the current STA population and traffic levels in the BSS as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': BssLoad
+          $ref: '#/components/schemas/BssLoad'
         channel:
-          type: integer
-          format: uint32
           description: Channel configured for the Access Point.
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         extBssLoad:
-          allOf:
-          - $ref: '#/components/schemas/ExtBssLoad'
-          - description: 'Extended BSS Load attribute contains more detailed information
-            on the current STA population and traffic levels in the BSS as per ETSI
-            GS MEC 002 [i.4].'
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: ExtBssLoad
+          # description': Extended BSS Load attribute contains more detailed information on the current STA population and traffic levels in the BSS as per ETSI GS MEC 002 [i.4].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': ExtBssLoad
+          $ref: '#/components/schemas/ExtBssLoad'
         timeStamp:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: Time stamp.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': Time stamp.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
         wanMetrics:
-          allOf:
-          - $ref: '#/components/schemas/WanMetrics'
-          - description: "WAN Metrics element provides information about the WAN link\
-            \ connecting an IEEE 802.11 Access Node and the Internet. Transmission\
-            \ characteristics such as the speed of the WAN connection to the Internet\
-            \ are included in Hotspot\_2.0 Technical Specification v1.0.0 [i.3]."
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: WanMetrics
+          # description': WAN Metrics element provides information about the WAN link connecting an IEEE 802.11 Access Node and the Internet. Transmission characteristics such as the speed of the WAN connection to the Internet are included in Hotspot 2.0 Technical Specification v1.0.0 [i.3].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': WanMetrics
+          $ref: '#/components/schemas/WanMetrics'
         wlanCap:
-          allOf:
-          - $ref: '#/components/schemas/WlanCapabilities'
-          - description: WLAN capabilities of Access Point.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: WlanCapabilities
+          # description': WLAN capabilities of Access Point.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': WlanCapabilities
+          $ref: '#/components/schemas/WlanCapabilities'
       required:
       - apId
       type: object
@@ -685,27 +669,24 @@ components:
     ApLocation:
       properties:
         civicLocation:
-          allOf:
-          - $ref: '#/components/schemas/CivicLocation'
-          - description: Civic Location of the AP as described in IETF RFC 4776 [7].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: CivicLocation
+          # description': Civic Location of the AP as described in IETF RFC 4776 [7].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': CivicLocation
+          $ref: '#/components/schemas/CivicLocation'
         geolocation:
-          allOf:
-          - $ref: '#/components/schemas/GeoLocation'
-          - description: Geospatial Location of the AP as defined in IEEE 802.11-2016 [8].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: GeoLocation
+          # description': Geospatial Location of the AP as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': GeoLocation
+          $ref: '#/components/schemas/GeoLocation'
       type: object
       x-etsi-ref: 6.5.9
     AssocStaNotification:
       properties:
         apId:
-          allOf:
-          - $ref: '#/components/schemas/ApIdentity'
-          - description: Identifier(s) to uniquely specify the Access Point to which the client stations are associated.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: ApIdentity
+          # description': Identifier(s) to uniquely specify the Access Point to which the client stations are associated.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': ApIdentity
+          $ref: '#/components/schemas/ApIdentity'
         notificationType:
           description: Shall be set to "AssocStaNotification".
           type: string
@@ -720,11 +701,10 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: StaIdentity
         timeStamp:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: Time stamp.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': Time stamp.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
       required:
       - notificationType
       - apId
@@ -733,40 +713,34 @@ components:
     AssocStaSubscription:
       properties:
         _links:
-          description: Hyperlink related to the resource. This shall be only included
-            in the HTTP responses and in HTTP PUT requests.
+          description: Hyperlink related to the resource. This shall be only included in the HTTP responses and in HTTP PUT requests.
           properties:
             self:
-              allOf:
-              - $ref: '#/components/schemas/LinkType'
-              - description: URI referring to a resource
-              - x-etsi-mec-cardinality: 1
-              - x-etsi-mec-origin-type: LinkType
+              # description': Self referring URI. The URI shall be unique within the WLAN information API as it acts as an ID for the subscription.
+              # x-etsi-mec-cardinality': '1'
+              # x-etsi-mec-origin-type': LinkType
+              $ref: '#/components/schemas/LinkType'
+          required:
+          - self
           type: object
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Structure (inlined)
         apId:
-          allOf:
-          - $ref: '#/components/schemas/ApIdentity'
-          - description: Identifier(s) to uniquely specify the target Access Point
-              for the subscription
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: ApIdentity
+          # description': Identifier(s) to uniquely specify the target Access Point for the subscription
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': ApIdentity
+          $ref: '#/components/schemas/ApIdentity'
         callbackReference:
-          description: URI selected by the service consumer to receive notifications
-            on the subscribed WLAN information. This shall be included both in the
-            request and in response.
+          description: URI selected by the service consumer to receive notifications on the subscribed WLAN information. This shall be included both in the request and in response.
           format: uri
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: URI
         expiryDeadline:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: The expiration time of the subscription determined by the
-              WLAN Access Information Service.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': The expiration time of the subscription determined by the WLAN Access Information Service.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
         subscriptionType:
           description: Shall be set to "AssocStaSubscription".
           type: string
@@ -781,14 +755,12 @@ components:
     AssociatedStations:
       properties:
         assocId:
-          description: Unique number which identifies a particular association between
-            an Access Point and a station.
+          description: Unique number which identifies a particular association between an Access Point and a station.
           type: string
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: string
         ipAddress:
-          description: IPv4 or IPv6 address allocated for the station associated with
-            the Access Point.
+          description: IPv4 or IPv6 address allocated for the station associated with the Access Point.
           items:
             type: string
           minItems: 0
@@ -796,8 +768,7 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: string
         macId:
-          description: Unique identifier assigned to a station (as network interface
-            controller) for communications at the data link layer of a network segment.
+          description: Unique identifier assigned to a station (as network interface controller) for communications at the data link layer of a network segment.
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: string
@@ -808,8 +779,7 @@ components:
     BeaconReport:
       properties:
         bssId:
-          description: The BSSID field indicates the BSSID of the BSS(s) for which
-            a beacon report has been received.
+          description: The BSSID field indicates the BSSID of the BSS(s) for which a beacon report has been received.
           items:
             type: string
           minItems: 1
@@ -822,8 +792,7 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         measurementId:
-          description: Measurement ID of the Measurement configuration applied to
-            this Beacon Report.
+          description: Measurement ID of the Measurement configuration applied to this Beacon Report.
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
@@ -833,8 +802,7 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         ssId:
-          description: (Optional) The SSID subelement indicates the ESS(s) or IBSS(s)
-            for which a beacon report is received.
+          description: (Optional) The SSID subelement indicates the ESS(s) or IBSS(s) for which a beacon report is received.
           items:
             type: string
           minItems: 1
@@ -842,11 +810,10 @@ components:
           x-etsi-mec-cardinality: 1..N
           x-etsi-mec-origin-type: String
         staId:
-          allOf:
-          - $ref: '#/components/schemas/StaIdentity'
-          - description: Identifier to uniquely specify the station whose information is exposed within this data type.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: StaIdentity
+          # description': Identifier to uniquely specify the station whose information is exposed within this data type.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': StaIdentity
+          $ref: '#/components/schemas/StaIdentity'
       required:
       - staId
       - measurementId
@@ -859,9 +826,7 @@ components:
     BeaconRequestConfig:
       properties:
         bssId:
-          description: The BSSID field indicates the BSSID of the BSS(s) for which
-            a beacon report is requested. When requesting beacon reports for all BSSs
-            on the channel, the BSSID field contains the wildcard BSSID.
+          description: The BSSID field indicates the BSSID of the BSS(s) for which a beacon report is requested. When requesting beacon reports for all BSSs on the channel, the BSSID field contains the wildcard BSSID.
           items:
             type: string
           minItems: 1
@@ -869,13 +834,7 @@ components:
           x-etsi-mec-cardinality: 1..N
           x-etsi-mec-origin-type: String
         channelId:
-          description: Channel number to scan. A Channel Number of 0 indicates a request
-            to make iterative measurements for all supported channels in the Operating
-            Class where the measurement is permitted on the channel and the channel
-            is valid for the current regulatory domain. A Channel Number of 255 indicates
-            a request to make iterative measurements for all supported channels in
-            the current Operating Class listed in the latest AP Channel Report received
-            from the serving AP.
+          description: Channel number to scan. A Channel Number of 0 indicates a request to make iterative measurements for all supported channels in the Operating Class where the measurement is permitted on the channel and the channel is valid for the current regulatory domain. A Channel Number of 255 indicates a request to make iterative measurements for all supported channels in the current Operating Class listed in the latest AP Channel Report received from the serving AP.
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
@@ -894,8 +853,7 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         ssId:
-          description: (Optional) The SSID subelement indicates the ESS(s) or IBSS(s)
-            for which a beacon report is requested.
+          description: (Optional) The SSID subelement indicates the ESS(s) or IBSS(s) for which a beacon report is requested.
           items:
             type: string
           minItems: 1
@@ -903,11 +861,10 @@ components:
           x-etsi-mec-cardinality: 1..N
           x-etsi-mec-origin-type: String
         staId:
-          allOf:
-          - $ref: '#/components/schemas/StaIdentity'
-          - description: Identifier to uniquely specify the station whose information is exposed within this data type.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: StaIdentity
+          # description': Identifier to uniquely specify the station whose information is exposed within this data type.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': StaIdentity
+          $ref: '#/components/schemas/StaIdentity'
       required:
       - staId
       - channelId
@@ -920,23 +877,21 @@ components:
     BssLoad:
       properties:
         availAdmCap:
+          description: Available Admission Capacity that specifies the remaining amount of medium time available via explicit admission control, in units of 32 s/s.
+          format: int32
           type: integer
-          description: Available Admission Capacity that specifies the remaining amount
-            of medium time available via explicit admission control, in units of 32
-            s/s.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
         channelUtilization:
+          description: "The percentage of time, linearly scaled with 255 representing 100\_%, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism."
+          format: int32
           type: integer
-          description: "The percentage of time, linearly scaled with 255 representing\
-            \ 100\_%, that the AP sensed the medium was busy, as indicated by either\
-            \ the physical or virtual Carrier Sense (CS) mechanism."
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
         staCount:
+          description: An unsigned integer that indicates the total number of STAs currently associated with this BSS.
+          format: int32
           type: integer
-          description: An unsigned integer that indicates the total number of STAs
-            currently associated with this BSS.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt16
       required:
@@ -948,11 +903,10 @@ components:
     ChannelLoadConfig:
       properties:
         apId:
-          allOf:
-          - $ref: '#/components/schemas/ApIdentity'
-          - description: Identifier(s) to uniquely specify the target Access Point
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: ApIdentity
+          # description': Identifier(s) to uniquely specify the target Access Point
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': ApIdentity
+          $ref: '#/components/schemas/ApIdentity'
         cChannelId:
           description: Channel number which load is reported
           type: integer
@@ -1132,8 +1086,7 @@ components:
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: String
         country:
-          description: The two-letter ISO 3166 [i.9] country code in capital ASCII
-            letters, e.g. DE or US, as per ISO 3166 [i.9]
+          description: The two-letter ISO 3166 [i.9] country code in capital ASCII letters, e.g. DE or US, as per ISO 3166 [i.9]
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
@@ -1144,49 +1097,51 @@ components:
     DmgCapabilities:
       properties:
         ExtScMcsCap:
-          description: Extended SC MCS capabilities as defined in draft IEEE P802.11/D4.0
-            [i.11]
+          description: Extended SC MCS capabilities as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         dmgApOrPcpCapInfo:
+          description: DMG AP or PCP capabilities information as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
-          description: DMG AP or PCP capabilities information as defined in draft
-            IEEE P802.11/D4.0 [i.11]
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
         dmgStaBeamTrackTimeLimit:
+          description: DMG station beam tracking time limit as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
-          description: DMG station beam tracking time limit as defined in draft IEEE
-            P802.11/D4.0 [i.11]
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
         dmgStaCapInfo:
+          description: DMG station capabilities information as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int64
           type: integer
-          description: DMG station capabilities information as defined in draft IEEE
-            P802.11/D4.0 [i.11]
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint64
         maxNrBasicAmsduSubframes:
-          description: Number of basic A-MSDU subframes in A-MSDU as defined in draft
-            IEEE P802.11/D4.0 [i.11]
+          description: Number of basic A-MSDU subframes in A-MSDU as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         maxNrShortAmsduSubframes:
-          description: Number of short A-MSDU subframes in A-MSDU as defined in draft
-            IEEE P802.11/D4.0 [i.11]
+          description: Number of short A-MSDU subframes in A-MSDU as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         sarCap:
           description: SAR capabilities as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         tddCap:
-          type: integer
           description: TDD capabilities as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
       required:
@@ -1204,23 +1159,26 @@ components:
       properties:
         ampduParameters:
           description: A-MPDU parameters as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: Uint8
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         reserved:
           description: ''
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint8
         supportedMcs:
-          type: integer
-          format: uint32
           description: Supported MCS as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint32
         trnParameters:
-          type: integer
           description: Training parameters as defined in draft IEEE P802.11/D4.0 [i.11]
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
       required:
@@ -1232,32 +1190,33 @@ components:
     ExtBssLoad:
       properties:
         muMimoStaCount:
+          description: Indicates the total number of STAs currently associated with this BSS that have a 1 in the MU Beamformee Capable field of their VHT Capabilities element.
+          format: int32
           type: integer
-          description: Indicates the total number of STAs currently associated with
-            this BSS that have a 1 in the MU Beamformee Capable field of their VHT
-            Capabilities element.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt16
         obsSec20MhzUtil:
           description: Observable loading on each of the secondary 20 MHz channel.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         obsSec40MhzUtil:
           description: Observable loading on each of the secondary 40 MHz channel.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         obsSec80MhzUtil:
           description: Observable loading on each of the secondary 80 MHz channel.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         spatStreamUnderUtil:
+          description: "The percentage of time, linearly scaled with 255 representing 100\_%, that the AP has underutilized spatial domain resources for given busy time of the medium."
+          format: int32
           type: integer
-          description: "The percentage of time, linearly scaled with 255 representing\
-            \ 100\_%, that the AP has underutilized spatial domain resources for given\
-            \ busy time of the medium."
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
       required:
@@ -1271,51 +1230,50 @@ components:
     GeoLocation:
       properties:
         altitude:
+          description: "The altitude value of location as defined in IETF RFC\_6225 [6]"
+          format: int32
           type: integer
-          format: uint32
-          description: "The altitude value of location as defined in IETF RFC\_6225\
-            \ [6]"
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         altitudeType:
-          description: The type description for altitude information e.g. floors or
-            meters as defined in IETF RFC 6225 [6]
+          description: The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225 [6]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint8
         altitudeUncertainty:
-          description: The uncertainty for altitude information as defined in IETF
-            RFC 6225 [6]
+          description: The uncertainty for altitude information as defined in IETF RFC 6225 [6]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint8
         datum:
-          description: The datum value to express how coordinates are organized and
-            related to real world as defined in IETF RFC 6225 [6]
+          description: The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225 [6]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         lat:
+          description: "The latitude value of location as defined in IETF RFC\_6225 [6]"
+          format: int64
           type: integer
-          description: "The latitude value of location as defined in IETF RFC\_6225\
-            \ [6]"
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint64
         latUncertainty:
-          description: The uncertainty for Latitude information as defined in IETF
-            RFC 6225 [6]
+          description: The uncertainty for Latitude information as defined in IETF RFC 6225 [6]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         long:
+          description: "The longitude value of location as defined in IETF RFC\_6225 [6]"
+          format: int64
           type: integer
-          description: "The longitude value of location as defined in IETF RFC\_6225\
-            \ [6]"
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint64
         longUncertainty:
-          description: The uncertainty for Longitude information as defined in IETF
-            RFC 6225 [6]
+          description: The uncertainty for Longitude information as defined in IETF RFC 6225 [6]
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
@@ -1340,8 +1298,7 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         ppeThresholds:
-          description: PPE Threshold determines the nominal packet padding value for
-            a HE PPDU.
+          description: PPE Threshold determines the nominal packet padding value for a HE PPDU.
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: not defined
@@ -1359,36 +1316,39 @@ components:
     HtCapabilities:
       properties:
         ampduParameters:
-          type: integer
           description: A-MPDU parameters as defined in IEEE 802.11-2016 [8].
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
         aselCap:
-          type: integer
           description: ASEL capabilities as defined in IEEE 802.11-2016 [8].
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
         htCapabilityInfo:
-          type: integer
           description: HT Capability Information as defined in IEEE 802.11-2016 [8].
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt16
         htExtendedCap:
-          type: integer
           description: Extended HT Capabilities as defined in IEEE 802.11-2016 [8].
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt16
         supportedMcsSet:
-          type: integer
-          format: uint64
           description: Supported MCS set as defined in IEEE 802.11-2016 [8].
+          format: int64
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint128
         txBeamFormCap:
+          description: Transmit Beamforming Capabilities as defined in IEEE 802.11-2016 [8].
+          format: int32
           type: integer
-          format: uint32
-          description: Transmit Beamforming Capabilities as defined in IEEE 802.11-2016
-            [8].
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt32
       required:
@@ -1414,20 +1374,17 @@ components:
     MeasurementConfig:
       properties:
         beaconRequest:
-          allOf:
-          - $ref: '#/components/schemas/BeaconRequestConfig'
-          - description: Configuration related to Beacon Request.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: BeaconRequestConfig
+          # description': Configuration related to Beacon Request.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': BeaconRequestConfig
+          $ref: '#/components/schemas/BeaconRequestConfig'
         channelLoad:
-          allOf:
-          - $ref: '#/components/schemas/ChannelLoadConfig'
-          - description: Configuration related to the Channel Load.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: ChannelLoadConfig
+          # description': Configuration related to the Channel Load.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': ChannelLoadConfig
+          $ref: '#/components/schemas/ChannelLoadConfig'
         measurementDuration:
-          description: Duration of the measurement, shall be lower than Maximum Measurement
-            Duration in TU as defined in section 11.11.4 of IEEE 802.11 [8].
+          description: Duration of the measurement, shall be lower than Maximum Measurement Duration in TU as defined in section 11.11.4 of IEEE 802.11 [8].
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
@@ -1437,26 +1394,21 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
         randomnInterval:
-          description: "Random interval to be used for starting the measurement. In\
-            \ units of TU as specifed in section\_11.11.3 of IEEE 802.11 [8]."
+          description: "Random interval to be used for starting the measurement. In units of TU as specifed in section\_11.11.3 of IEEE 802.11 [8]."
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         staStatistics:
-          allOf:
-          - $ref: '#/components/schemas/StaStatisticsConfig'
-          - description: Configuration related to the statistics provided by STAs.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: StaStatisticsConfig
+          # description': Configuration related to the statistics provided by STAs.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': StaStatisticsConfig
+          $ref: '#/components/schemas/StaStatisticsConfig'
       required:
       - measurementId
       - measurementDuration
       - randomnInterval
       type: object
-      x-etsi-notes: "NOTE:\tThis element enables the configuration of the channelLoad,\
-        \ beaconRequest and staStatistics in a single resource data type, although\
-        \ only one of each measurement. Multiple measurement configurations of each\
-        \ kind are not allowed."
+      x-etsi-notes: "NOTE:\tThis element enables the configuration of the channelLoad, beaconRequest and staStatistics in a single resource data type, although only one of each measurement. Multiple measurement configurations of each kind are not allowed."
       x-etsi-ref: 6.2.4
     NeighborReport:
       properties:
@@ -1466,10 +1418,8 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
         bssidInfo:
-          description: Additional information related to Access Point that is being
-            reported such as AP reachability, security, key scope, Mobility Domain,
-            HT/VHT capability and Fine Time Measurements.
-          format: uint32
+          description: Additional information related to Access Point that is being reported such as AP reachability, security, key scope, Mobility Domain, HT/VHT capability and Fine Time Measurements.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt32
@@ -1484,8 +1434,7 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         phyType:
-          description: PHY type of the AP indicated by this BSSID. It is an integer
-            value coded according to the value of the dot11PHYType.
+          description: PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType.
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
@@ -1500,21 +1449,19 @@ components:
     ProblemDetails:
       properties:
         detail:
-          description: A human-readable explanation specific to this occurrence of
-            the problem
+          description: A human-readable explanation specific to this occurrence of the problem
           type: string
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: String
         instance:
-          description: A URI reference that identifies the specific occurrence of
-            the problem
+          description: A URI reference that identifies the specific occurrence of the problem
           format: uri
           type: string
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: URI
         status:
           description: The HTTP status code for this occurrence of the problem
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
@@ -1524,8 +1471,7 @@ components:
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: String
         type:
-          description: A URI reference according to IETF RFC 3986 that identifies
-            the problem type
+          description: A URI reference according to IETF RFC 3986 that identifies the problem type
           format: uri
           type: string
           x-etsi-mec-cardinality: 0..1
@@ -1535,6 +1481,7 @@ components:
       properties:
         rssi:
           description: The Received Signal Strength Indicator from a station
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
@@ -1545,23 +1492,19 @@ components:
     StaDataRate:
       properties:
         staId:
-          allOf:
-          - $ref: '#/components/schemas/StaIdentity'
-          - description: Identifier(s) to uniquely specify the client station(s) associated.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: StaIdentity
+          # description': Identifier(s) to uniquely specify the client station(s) associated.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': StaIdentity
+          $ref: '#/components/schemas/StaIdentity'
         staLastDataDownlinkRate:
-          description: The data transmit rate in kbps that was most recently used
-            for transmission of data PPDUs from the access point to the station.
-          format: uint32
+          description: The data transmit rate in kbps that was most recently used for transmission of data PPDUs from the access point to the station.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         staLastDataUplinkRate:
-          description: The data transmit rate in Kbps that was most recently used
-            for transmission of data PPDUs from the associated station to the access
-            point.
-          format: uint32
+          description: The data transmit rate in Kbps that was most recently used for transmission of data PPDUs from the associated station to the access point.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
@@ -1583,11 +1526,10 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: StaDataRate
         timeStamp:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: Time stamp.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': Time stamp.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
       required:
       - notificationType
       type: object
@@ -1595,36 +1537,31 @@ components:
     StaDataRateSubscription:
       properties:
         _links:
-          description: Hyperlink related to the resource. This shall be only included
-            in the HTTP responses and in HTTP PUT requests.
+          description: Hyperlink related to the resource. This shall be only included in the HTTP responses and in HTTP PUT requests.
           properties:
             self:
-              allOf:
-              - $ref: '#/components/schemas/LinkType'
-              - description: URI referring to a resource
-              - x-etsi-mec-cardinality: 1
-              - x-etsi-mec-origin-type: LinkType
+              # description': Self referring URI. The URI shall be unique within the WLAN Access Information API as it acts as an ID for the subscription.
+              # x-etsi-mec-cardinality': '1'
+              # x-etsi-mec-origin-type': LinkType
+              $ref: '#/components/schemas/LinkType'
+          required:
+          - self
           type: object
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Structure (inlined)
         callbackReference:
-          description: URI selected by the service consumer to receive notifications
-            on the subscribed WLAN Access Information Service. This shall be included
-            both in the request and in response.
+          description: URI selected by the service consumer to receive notifications on the subscribed WLAN Access Information Service. This shall be included both in the request and in response.
           format: uri
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: URI
         expiryDeadline:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: The expiration time of the subscription determined by the
-              WLAN Access Information Service.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': The expiration time of the subscription determined by the WLAN Access Information Service.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
         staId:
-          description: Identifier(s) to uniquely specify the target client station(s)
-            for the subscription
+          description: Identifier(s) to uniquely specify the target client station(s) for the subscription
           items:
             $ref: '#/components/schemas/StaIdentity'
           minItems: 1
@@ -1645,8 +1582,7 @@ components:
     StaIdentity:
       properties:
         aid:
-          description: 'Number which identifies a particular association between a
-            station and an Access Point '
+          description: 'Number which identifies a particular association between a station and an Access Point '
           type: string
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: String
@@ -1659,8 +1595,7 @@ components:
           x-etsi-mec-cardinality: 0..N
           x-etsi-mec-origin-type: String
         macId:
-          description: Unique identifier assigned to station (as network interface
-            controller) for communications at the data link layer of a network segment.
+          description: Unique identifier assigned to station (as network interface controller) for communications at the data link layer of a network segment.
           type: string
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: String
@@ -1679,53 +1614,46 @@ components:
     StaInfo:
       properties:
         apAssociated:
-          allOf:
-          - $ref: '#/components/schemas/ApAssociated'
-          - description: Information about the Access Point that this Client Station is associated to.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: ApAssociated
+          # description': Information about the Access Point that this Client Station is associated to.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': ApAssociated
+          $ref: '#/components/schemas/ApAssociated'
         beaconReport:
-          allOf:
-          - $ref: '#/components/schemas/BeaconReport'
-          - description: Beacon Report as defined in Wi-Fi Agile Multiband Specification [9].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: BeaconReport
+          # description': Beacon Report as defined in Wi-Fi Agile Multiband Specification [9].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': BeaconReport
+          $ref: '#/components/schemas/BeaconReport'
         channel:
-          type: integer
-          format: uint32
           description: Channel currently used by the station.
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         rssi:
-          allOf:
-          - $ref: '#/components/schemas/Rssi'
-          - description: Receive Signal Strength Indicator.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: Rssi
+          # description': Receive Signal Strength Indicator.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': Rssi
+          $ref: '#/components/schemas/Rssi'
         staDataRate:
-          allOf:
-          - $ref: '#/components/schemas/StaDataRate'
-          - description: Station Data Rate as defined in IEEE 802.11-2016 [8].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: StaDataRate
+          # description': Station Data Rate as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': StaDataRate
+          $ref: '#/components/schemas/StaDataRate'
         staId:
-          allOf:
-          - $ref: '#/components/schemas/StaIdentity'
-          - description: 0 to N identifiers to uniquely specify the station whose information is exposed within this data type.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: StaIdentity
+          # description': 0 to N identifiers to uniquely specify the station whose information is exposed within this data type.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': StaIdentity
+          $ref: '#/components/schemas/StaIdentity'
         staStatistics:
-          allOf:
-          - $ref: '#/components/schemas/StaStatistics'
-          - description: Statistics as defined in IEEE 802.11-2016 [8] for the client station collected over measurement duration.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: StaStatistics
+          # description': Statistics as defined in IEEE 802.11-2016 [8] for the client station collected over measurement duration.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': StaStatistics
+          $ref: '#/components/schemas/StaStatistics'
         timeStamp:
-          allOf:
-          - $ref: '#/components/schemas/TimeStamp'
-          - description: Time stamp.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: TimeStamp
+          # description': Time stamp.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': TimeStamp
+          $ref: '#/components/schemas/TimeStamp'
       required:
       - staId
       type: object
@@ -1733,8 +1661,7 @@ components:
     StaStatistics:
       properties:
         groupIdentity:
-          description: Indicates the requested statistics group describing the Statistics
-            Group Data according to table 9-114 of IEEE 802.11-2016 [8].
+          description: Indicates the requested statistics group describing the Statistics Group Data according to table 9-114 of IEEE 802.11-2016 [8].
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
@@ -1744,11 +1671,10 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt16
         statisticsGroupData:
-          allOf:
-          - $ref: '#/components/schemas/StatisticsGroupData'
-          - description: "Statistics Group Data as defined in Annex C of IEEE 802.112016\_\ [8]."
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: not specified
+          $ref: '#/components/schemas/StatisticsGroupData'
+          description: "Statistics Group Data as defined in Annex C of IEEE 802.112016\_[8]."
+          x-etsi-mec-cardinality: '1'
+          x-etsi-mec-origin-type: not specified
       required:
       - md
       - groupIdentity
@@ -1763,29 +1689,25 @@ components:
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         staId:
-          allOf:
-          - $ref: '#/components/schemas/StaIdentity'
-          - description: Identifier to uniquely specify the station whose information is exposed within this data type.
-          - x-etsi-mec-cardinality: '1'
-          - x-etsi-mec-origin-type: StaIdentity
+          # description': Identifier to uniquely specify the station whose information is exposed within this data type.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': StaIdentity
+          $ref: '#/components/schemas/StaIdentity'
         triggerCondition:
+          # description': As per Figure 9-161 of IEEE 802.11. This bitmap defines what are the metrics returned by the STA Statistics Report.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': 16bits bitmap
           type: integer
-          description: As per Figure 9-161 of IEEE 802.11. This bitmap defines what
-            are the metrics returned by the STA Statistics Report.
-          x-etsi-mec-cardinality: '1'
-          x-etsi-mec-origin-type: 16bits bitmap
         triggerTimeout:
-          description: The Trigger Timeout field contains a value in units of 100
-            TUs during which a measuring STA does not generate further triggered STA
-            Statistics Reports after a trigger condition has been met.
+          description: The Trigger Timeout field contains a value in units of 100 TUs during which a measuring STA does not generate further triggered STA Statistics Reports after a trigger condition has been met.
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Integer
         triggeredReport:
+          # description': Yes, use triggered report.
+          # x-etsi-mec-cardinality': '1'
+          # x-etsi-mec-origin-type': Bool
           type: boolean
-          description: Yes, use triggered report.
-          x-etsi-mec-cardinality: '1'
-          x-etsi-mec-origin-type: Bool
       required:
       - staId
       - groupIdentity
@@ -1797,277 +1719,277 @@ components:
     StatisticsGroupData:
       properties:
         dot11AMPDUDelimiterCRCErrorCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11AMPDUReceivedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11AMSDUAckFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11AckFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11BeamformingFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ChannelWidthSwitchCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11DualCTSFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11DualCTSSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ExplicitBARFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FCSErrorCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FailedAMSDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FailedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FortyMHzFrameReceivedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FortyMHzFrameTransmittedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11FrameDuplicateCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11GrantedRDGUnusedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11GrantedRDGUsedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11GroupReceivedFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11GroupTransmittedFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ImplicitBARFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11MPDUInReceivedAMPDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11MultipleRetryAMSDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11MultipleRetryCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11PSMPUTTGrantDuration:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11PSMPUTTUsedDuration:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosAckFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosDiscardedFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosFailedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosFrameDuplicateCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosMPDUsReceivedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosMultipleRetryCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosRTSFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosRTSSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosReceivedFragmentCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosRetriesReceivedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosRetryCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosTransmittedFragmentCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11QosTransmittedFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsBIPMICErrors:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsCCMPDecryptErrors:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsCCMPReplays:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsCMACReplays:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsRobustMgmtCCMPReplays:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsTKIPICVErrors:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RSNAStatsTKIPReplays:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RTSFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RTSLSIGFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RTSLSIGSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RTSSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ReceivedAMSDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ReceivedFragmentCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11ReceivedOctetsInAMPDUCount:
-          format: uint64
+          format: int64
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint64
         dot11ReceivedOctetsInAMSDUCount:
-          format: uint64
+          format: int64
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint64
         dot11RetryAMSDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11RetryCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
@@ -2100,77 +2022,77 @@ components:
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint8
         dot11STBCCTSFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11STBCCTSSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedAMPDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedAMSDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedFragmentCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedFrameCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedFramesInGrantedRDGCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedMPDUsInAMPDUCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedOctetsInAMPDUCount:
-          format: uint64
+          format: int64
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint64
         dot11TransmittedOctetsInAMSDUCount:
-          format: uint64
+          format: int64
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TransmittedOctetsInGrantedRDGCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TwentyMHzFrameReceivedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11TwentyMHzFrameTransmittedCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11nonSTBCCTSFailureCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
         dot11nonSTBCCTSSuccessCount:
-          format: uint32
+          format: int32
           type: integer
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Uint32
@@ -2178,15 +2100,10 @@ components:
     SubscriptionLinkList:
       properties:
         _links:
-          description: Hyperlink related to the resource. This shall be only included
-            in the HTTP responses and in HTTP PUT requests.
+          description: Hyperlink related to the resource. This shall be only included in the HTTP responses and in HTTP PUT requests.
           properties:
             self:
-              allOf:
-              - $ref: '#/components/schemas/LinkType'
-              - description: URI referring to a resource
-              - x-etsi-mec-cardinality: 1
-              - x-etsi-mec-origin-type: LinkType
+              $ref: '#/components/schemas/LinkType'
           type: object
           x-etsi-mec-cardinality: 0..1
           x-etsi-mec-origin-type: Structure (inlined)
@@ -2208,17 +2125,15 @@ components:
     TimeStamp:
       properties:
         nanoSeconds:
+          description: The nanoseconds part of the time. Time is defined as Unix-time since January 1, 1970, 00:00:00 UTC.
+          format: int32
           type: integer
-          format: uint32
-          description: The nanoseconds part of the time. Time is defined as Unix-time
-            since January 1, 1970, 00:00:00 UTC.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint32
         seconds:
+          description: The seconds part of the time. Time is defined as Unixtime since January 1, 1970, 00:00:00 UTC.
+          format: int32
           type: integer
-          format: uint32
-          description: The seconds part of the time. Time is defined as Unixtime since
-            January 1, 1970, 00:00:00 UTC.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint32
       required:
@@ -2229,15 +2144,15 @@ components:
     VhtCapabilities:
       properties:
         vhtCapInfo:
-          type: integer
-          format: uint32
           description: VHT capabilities Info as defined in IEEE 802.11-2016 [8].
+          format: int32
+          type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt32
         vhtMcsNss:
+          description: Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016 [8].
+          format: int64
           type: integer
-          description: Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016
-            [8].
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt64
       required:
@@ -2248,51 +2163,38 @@ components:
     WanMetrics:
       properties:
         downlinkLoad:
+          description: 1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.
+          format: int32
           type: integer
-          description: 1-octet positive integer representing the current percentage
-            loading of the downlink WAN connection, scaled linearly with 255 representing
-            100 %, as measured over an interval the duration of which is reported
-            in Load Measurement Duration. In cases where the downlink load is unknown
-            to the AP, the value is set to zero.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt8
         downlinkSpeed:
+          description: 4-octet positive integer whose value is an estimate of the WAN Backhaul link current downlink speed in kilobits per second.
+          format: int32
           type: integer
-          format: uint32
-          description: 4-octet positive integer whose value is an estimate of the
-            WAN Backhaul link current downlink speed in kilobits per second.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint32
         lmd:
+          description: The LMD (Load Measurement Duration) field is a 2-octet positive integer representing the duration over which the Downlink Load and Uplink Load have been measured, in tenths of a second. When the actual load measurement duration is greater than the maximum value, the maximum value will be reported. The value of the LMD field is set to 0 when neither the uplink nor downlink load can be computed. When the uplink and downlink loads are computed over different intervals, the maximum interval is reported.
+          format: int32
           type: integer
-          description: The LMD (Load Measurement Duration) field is a 2-octet positive
-            integer representing the duration over which the Downlink Load and Uplink
-            Load have been measured, in tenths of a second. When the actual load measurement
-            duration is greater than the maximum value, the maximum value will be
-            reported. The value of the LMD field is set to 0 when neither the uplink
-            nor downlink load can be computed. When the uplink and downlink loads
-            are computed over different intervals, the maximum interval is reported.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint16
         uplinkLoad:
-          description: 1-octet positive integer representing the current percentage
-            loading of the uplink WAN connection, scaled linearly with 255 representing
-            100 %, as measured over an interval, the duration of which is reported
-            in Load Measurement Duration. In cases where the uplink load is unknown
-            to the AP, the value is set to zero.
+          description: 1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
         uplinkSpeed:
+          description: 4-octet positive integer whose value is an estimate of the WAN Backhaul link's current uplink speed in kilobits per second.
+          format: int32
           type: integer
-          format: uint32
-          description: 4-octet positive integer whose value is an estimate of the
-            WAN Backhaul link's current uplink speed in kilobits per second.
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: UInt32
         wanInfo:
-          description: Info about WAN link status, link symmetricity and capacity
-            currently used.
+          description: Info about WAN link status, link symmetricity and capacity currently used.
+          format: int32
           type: integer
           x-etsi-mec-cardinality: '1'
           x-etsi-mec-origin-type: Uint8
@@ -2308,35 +2210,29 @@ components:
     WlanCapabilities:
       properties:
         dmg:
-          allOf:
-          - $ref: '#/components/schemas/DmgCapabilities'
-          - description: Information about Access Point DMG capabilities as defined in IEEE 802.11-2016 [8].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: DmgCapabilities
+          # description': Information about Access Point DMG capabilities as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': DmgCapabilities
+          $ref: '#/components/schemas/DmgCapabilities'
         edmg:
-          allOf:
-          - $ref: '#/components/schemas/EdmgCapabilities'
-          - description: Information about Access Point EDMG capabilities as defined in draft IEEE P802.11/D4.0 [i.11].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: EdmgCapabilities
+          # description': Information about Access Point EDMG capabilities as defined in draft IEEE P802.11/D4.0 [i.11].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': EdmgCapabilities
+          $ref: '#/components/schemas/EdmgCapabilities'
         he:
-          allOf:
-          - $ref: '#/components/schemas/HeCapabilities'
-          - description: Information about Access Point HE capabilities as defined in FFS.
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: HeCapabilities
+          # description': Information about Access Point HE capabilities as defined in FFS.
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': HeCapabilities
+          $ref: '#/components/schemas/HeCapabilities'
         ht:
-          allOf:
-          - $ref: '#/components/schemas/HtCapabilities'
-          - description: "Information about Access Point HT capabilities as defined\
-            \ in IEEE\_802.11-2016 [8]."
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: HtCapabilities
+          # description': Information about Access Point HT capabilities as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': HtCapabilities
+          $ref: '#/components/schemas/HtCapabilities'
         vht:
-          allOf:
-          - $ref: '#/components/schemas/VhtCapabilities'
-          - description: Information about Access Point VHT capabilities as defined in IEEE 802.11-2016 [8].
-          - x-etsi-mec-cardinality: 0..1
-          - x-etsi-mec-origin-type: VhtCapabilities
+          # description': Information about Access Point VHT capabilities as defined in IEEE 802.11-2016 [8].
+          # x-etsi-mec-cardinality': 0..1
+          # x-etsi-mec-origin-type': VhtCapabilities
+          $ref: '#/components/schemas/VhtCapabilities'
       type: object
       x-etsi-ref: 6.5.4
