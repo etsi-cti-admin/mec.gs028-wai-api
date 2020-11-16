@@ -58,14 +58,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "apInfo": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/ApInfo"
-                      }
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ApInfo"
                   }
                 }
               }
@@ -123,14 +118,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "staInfo": {
-                      "type": "array",
-                      "items": {
-                        "$ref": "#/components/schemas/StaInfo"
-                      }
-                    }
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StaInfo"
                   }
                 }
               }
@@ -176,35 +166,25 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "subscriptionLinkList"
-                  ],
-                  "properties": {
-                    "subscriptionLinkList": {
-                      "$ref": "#/components/schemas/SubscriptionLinkList"
-                    }
-                  }
+                  "$ref": "#/components/schemas/SubscriptionLinkList"
                 },
                 "example": {
-                  "subscriptionLinkList": {
-                    "_links": {
-                      "self": {
-                        "href": "http://meAppServer.example.com/wai/v2/subscriptions"
-                      }
-                    },
-                    "subscription": [
-                      {
-                        "_links": {
-                          "self": {
-                            "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
-                          }
-                        },
-                        "callbackReference": "http://my.callback.com/wai/assocStaSubscription/some-id",
-                        "subscriptionType": "AssocStaSubscription"
-                      }
-                    ]
-                  }
+                  "_links": {
+                    "self": {
+                      "href": "http://meAppServer.example.com/wai/v2/subscriptions"
+                    }
+                  },
+                  "subscription": [
+                    {
+                      "_links": {
+                        "self": {
+                          "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
+                        }
+                      },
+                      "callbackReference": "http://my.callback.com/wai/assocStaSubscription/some-id",
+                      "subscriptionType": "AssocStaSubscription"
+                    }
+                  ]
                 }
               }
             }
@@ -242,36 +222,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "notificationSubscription": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/AssocStaSubscription"
-                      },
-                      {
-                        "$ref": "#/components/schemas/StaDataRateSubscription"
-                      }
-                    ],
-                    "discriminator": {
-                      "propertyName": "subscriptionType"
-                    }
-                  }
+                "$ref": "#/components/schemas/InlineSubscription"
+              },
+              "example": {
+                "subscriptionType": "AssocStaSubscription",
+                "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
+                "expiryDeadline": {
+                  "seconds": 1977836800,
+                  "nanoSeconds": 0
                 },
-                "example": {
-                  "notificationSubscription": {
-                    "subscriptionType": "AssocStaSubscription",
-                    "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
-                    "expiryDeadline": {
-                      "seconds": 1977836800,
-                      "nanoSeconds": 0
-                    },
-                    "apId": {
-                      "macId": "005C0A0A0A0A",
-                      "ssid": "myNetworkSsid",
-                      "ipAddress": "10.10.100.1"
-                    }
-                  }
+                "apId": {
+                  "macId": "005C0A0A0A0A",
+                  "ssid": "myNetworkSsid",
+                  "ipAddress": "10.10.100.1"
                 }
               }
             }
@@ -283,41 +246,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "notificationSubscription": {
-                      "oneOf": [
-                        {
-                          "$ref": "#/components/schemas/AssocStaSubscription"
-                        },
-                        {
-                          "$ref": "#/components/schemas/StaDataRateSubscription"
-                        }
-                      ],
-                      "discriminator": {
-                        "propertyName": "subscriptionType"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/InlineSubscription"
                 },
                 "example": {
-                  "notificationSubscription": {
-                    "subscriptionType": "AssocStaSubscription",
-                    "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
-                    "_links": {
-                      "self": {
-                        "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
-                      }
-                    },
-                    "expiryDeadline": {
-                      "seconds": 1977836800,
-                      "nanoSeconds": 0
-                    },
-                    "apId": {
-                      "macId": "005C0A0A0A0A",
-                      "ssid": "myNetworkSsid",
-                      "ipAddress": "10.10.100.1"
+                  "subscriptionType": "AssocStaSubscription",
+                  "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
+                  "_links": {
+                    "self": {
+                      "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
                     }
+                  },
+                  "expiryDeadline": {
+                    "seconds": 1977836800,
+                    "nanoSeconds": 0
+                  },
+                  "apId": {
+                    "macId": "005C0A0A0A0A",
+                    "ssid": "myNetworkSsid",
+                    "ipAddress": "10.10.100.1"
                   }
                 }
               }
@@ -361,44 +307,27 @@
                   "content": {
                     "application/json": {
                       "schema": {
-                        "type": "object",
-                        "properties": {
-                          "notification": {
-                            "oneOf": [
-                              {
-                                "$ref": "#/components/schemas/AssocStaNotification"
-                              },
-                              {
-                                "$ref": "#/components/schemas/StaDataRateNotification"
-                              }
-                            ],
-                            "discriminator": {
-                              "propertyName": "notificationType"
-                            }
-                          }
+                        "$ref": "#/components/schemas/InlineNotification"
+                      },
+                      "example": {
+                        "notificationType": "AssocStaNotification",
+                        "timeStamp": {
+                          "seconds": 1977836800,
+                          "nanoseconds": 0
                         },
-                        "example": {
-                          "notification": {
-                            "notificationType": "AssocStaNotification",
-                            "timeStamp": {
-                              "seconds": 1977836800,
-                              "nanoseconds": 0
-                            },
-                            "apId": {
-                              "macId": "005C0A0A0A0A",
-                              "ssid": "myNetworkSsid",
-                              "ipAddress": "10.10.100.1"
-                            },
-                            "staId": {
-                              "macId": "005C01111111",
-                              "ssid": [
-                                "myNetworkSsid",
-                                "myOtherNetworkSsid"
-                              ],
-                              "aid": "1122",
-                              "ipAddress": "10.10.1.255"
-                            }
-                          }
+                        "apId": {
+                          "macId": "005C0A0A0A0A",
+                          "ssid": "myNetworkSsid",
+                          "ipAddress": "10.10.100.1"
+                        },
+                        "staId": {
+                          "macId": "005C01111111",
+                          "ssid": [
+                            "myNetworkSsid",
+                            "myOtherNetworkSsid"
+                          ],
+                          "aid": "1122",
+                          "ipAddress": "10.10.1.255"
                         }
                       }
                     }
@@ -434,44 +363,24 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "notificationSubscription"
-                  ],
-                  "properties": {
-                    "notificationSubscription": {
-                      "oneOf": [
-                        {
-                          "$ref": "#/components/schemas/AssocStaSubscription"
-                        },
-                        {
-                          "$ref": "#/components/schemas/StaDataRateSubscription"
-                        }
-                      ],
-                      "discriminator": {
-                        "propertyName": "subscriptionType"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/InlineSubscription"
                 },
                 "example": {
-                  "notificationSubscription": {
-                    "subscriptionType": "AssocStaSubscription",
-                    "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
-                    "_links": {
-                      "self": {
-                        "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
-                      }
-                    },
-                    "expiryDeadline": {
-                      "seconds": 1977836800,
-                      "nanoSeconds": 0
-                    },
-                    "apId": {
-                      "macId": "005C0A0A0A0A",
-                      "ssid": "myNetworkSsid",
-                      "ipAddress": "10.10.100.1"
+                  "subscriptionType": "AssocStaSubscription",
+                  "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
+                  "_links": {
+                    "self": {
+                      "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
                     }
+                  },
+                  "expiryDeadline": {
+                    "seconds": 1977836800,
+                    "nanoSeconds": 0
+                  },
+                  "apId": {
+                    "macId": "005C0A0A0A0A",
+                    "ssid": "myNetworkSsid",
+                    "ipAddress": "10.10.100.1"
                   }
                 }
               }
@@ -510,41 +419,24 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "notificationSubscription": {
-                    "oneOf": [
-                      {
-                        "$ref": "#/components/schemas/AssocStaSubscription"
-                      },
-                      {
-                        "$ref": "#/components/schemas/StaDataRateSubscription"
-                      }
-                    ],
-                    "discriminator": {
-                      "propertyName": "subscriptionType"
-                    }
+                "$ref": "#/components/schemas/InlineSubscription"
+              },
+              "example": {
+                "subscriptionType": "AssocStaSubscription",
+                "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
+                "_links": {
+                  "self": {
+                    "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
                   }
                 },
-                "example": {
-                  "notificationSubscription": {
-                    "subscriptionType": "AssocStaSubscription",
-                    "callbackReference": "http://meAppClient.example.com/wai/v2/notifications/1",
-                    "_links": {
-                      "self": {
-                        "href": "http://meAppServer.example.com/wai/v2/subscriptions/sub123"
-                      }
-                    },
-                    "expiryDeadline": {
-                      "seconds": 1977836800,
-                      "nanoSeconds": 0
-                    },
-                    "apId": {
-                      "macId": "005C0A0A0A0A",
-                      "ssid": "myNetworkSsid",
-                      "ipAddress": "10.10.100.1"
-                    }
-                  }
+                "expiryDeadline": {
+                  "seconds": 1977836800,
+                  "nanoSeconds": 0
+                },
+                "apId": {
+                  "macId": "005C0A0A0A0A",
+                  "ssid": "myNetworkSsid",
+                  "ipAddress": "10.10.100.1"
                 }
               }
             }
@@ -561,34 +453,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "subscription": {
-                      "oneOf": [
-                        {
-                          "$ref": "#/components/schemas/AssocStaSubscription"
-                        },
-                        {
-                          "$ref": "#/components/schemas/StaDataRateSubscription"
-                        }
-                      ],
-                      "discriminator": {
-                        "propertyName": "subscriptionType"
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/InlineSubscription"
                 },
                 "example": {
-                  "subscription": {
-                    "_links": {
-                      "self": {
-                        "href": "http://[hostIP]/sbox-xyz123/wai/v2/subscriptions/sub123"
-                      }
-                    },
-                    "callbackReference": "http://my.callback.com/wai/some-id",
-                    "apId": {
-                      "macId": "005C0A0A0A0A"
+                  "_links": {
+                    "self": {
+                      "href": "http://[hostIP]/sbox-xyz123/wai/v2/subscriptions/sub123"
                     }
+                  },
+                  "callbackReference": "http://my.callback.com/wai/some-id",
+                  "apId": {
+                    "macId": "005C0A0A0A0A"
                   }
                 }
               }
@@ -663,14 +538,9 @@
       "400": {
         "description": "Bad Request : used to indicate that incorrect parameters were passed to the request.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -678,14 +548,9 @@
       "401": {
         "description": "Unauthorized :  used when the client did not submit credentials.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -693,17 +558,9 @@
       "403": {
         "description": "Forbidden :  operation is not allowed given the current status of the resource.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "required": [
-                "problemDetails"
-              ],
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -711,14 +568,9 @@
       "404": {
         "description": "Not Found :  used when a client provided a URI that cannot be mapped to a valid resource URI.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -726,14 +578,9 @@
       "406": {
         "description": "Not Acceptable : used to indicate that the server cannot provide the any of the content formats supported by the client.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -741,14 +588,9 @@
       "412": {
         "description": "Precondition failed :  used when a condition has failed during conditional requests, e.g. when using ETags to avoid write conflicts when using PUT",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -756,14 +598,9 @@
       "415": {
         "description": "Unsupported Media Type :  used to indicate that the server or the client does not support the content type of the entity body.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -771,24 +608,17 @@
       "422": {
         "description": "Unprocessable Entity : used to indicate that the server understands the content type of the request entity and that the syntax of the request entity is correct but that the server is unable to process the contained instructions. This error condition can occur if an JSON request body is syntactically correct but semantically incorrect, for example if the target area for the request is considered too large. This error condition can also occur if the capabilities required by the request are not supported.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             },
             "example": {
               "application/problem+json": {
-                "ProblemDetails": {
-                  "type": "https://meAppServer.example.com/wai/v2/probs/too-many targets",
-                  "title": "Too many targets",
-                  "status": "422",
-                  "detail": "The target area for the request is considered too large",
-                  "instance": "/meAppClient.example.com/77777/msgs/abc"
-                }
+                "type": "https://meAppServer.example.com/wai/v2/probs/too-many targets",
+                "title": "Too many targets",
+                "status": "422",
+                "detail": "The target area for the request is considered too large",
+                "instance": "/meAppClient.example.com/77777/msgs/abc"
               }
             }
           }
@@ -797,14 +627,9 @@
       "429": {
         "description": "Too Many Requests : used when a rate limiter has triggered.",
         "content": {
-          "application/json": {
+          "application/problem+json": {
             "schema": {
-              "type": "object",
-              "properties": {
-                "problemDetails": {
-                  "$ref": "#/components/schemas/ProblemDetails"
-                }
-              }
+              "$ref": "#/components/schemas/ProblemDetails"
             }
           }
         }
@@ -1813,7 +1638,33 @@
           "aselCap"
         ],
         "type": "object",
-        "x-etsi-ref": "6.5.14"
+        "x-etsi-ref": "6.5.1"
+      },
+      "InlineNotification": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AssocStaNotification"
+          },
+          {
+            "$ref": "#/components/schemas/StaDataRateNotification"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "notificationType"
+        }
+      },
+      "InlineSubscription": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AssocStaSubscription"
+          },
+          {
+            "$ref": "#/components/schemas/StaDataRateSubscription"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "subscriptionType"
+        }
       },
       "LinkType": {
         "properties": {
