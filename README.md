@@ -1,11 +1,12 @@
 # Multi-access Edge Computing WLAN Information API
 
-This repository contains OpenAPIs descriptions for the interfaces specified in ETSI MEC GS 028 "MEC WLAN Information API".
+This repository contains OpenAPIs descriptions for the interfaces specified in ETSI MEC GS 028
 
-More information and download options for the specification are available
-[here](https://portal.etsi.org/webapp/WorkProgram/Report_WorkItem.asp?WKI_ID=53995).
+## Online resources
 
-**{-NOTE: The OpenAPI definitions are under development. The API as defined in GS MEC 028 takes precedence.-}**
+* [Specification document](https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.01.01_60/gs_MEC028v020101p.pdf)
+* [Navigate the API in the browser](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/gitlab/mec/gs028-wai-api/raw/develop/WlanInformationApi.yaml).
+* [Edit the API online](https://forge.etsi.org/swagger/editor/?url=https://forge.etsi.org/gitlab/mec/gs028-wai-api/raw/develop/WlanInformationApi.yaml).
 
 ## License
 
