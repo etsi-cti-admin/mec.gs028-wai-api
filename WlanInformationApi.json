@@ -803,7 +803,7 @@
           },
           "channel": {
             "description": "Channel configured for the Access Point.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -1060,21 +1060,21 @@
         "properties": {
           "availAdmCap": {
             "description": "Available Admission Capacity that specifies the remaining amount of medium time available via explicit admission control, in units of 32 s/s.",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
           },
           "channelUtilization": {
             "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
           },
           "staCount": {
             "description": "An unsigned integer that indicates the total number of STAs currently associated with this BSS.",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt16"
@@ -1325,21 +1325,21 @@
         "properties": {
           "ExtScMcsCap": {
             "description": "Extended SC MCS capabilities as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dmgApOrPcpCapInfo": {
             "description": "DMG AP or PCP capabilities information as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
           },
           "dmgStaBeamTrackTimeLimit": {
             "description": "DMG station beam tracking time limit as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
@@ -1353,28 +1353,28 @@
           },
           "maxNrBasicAmsduSubframes": {
             "description": "Number of basic A-MSDU subframes in A-MSDU as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "maxNrShortAmsduSubframes": {
             "description": "Number of short A-MSDU subframes in A-MSDU as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "sarCap": {
             "description": "SAR capabilities as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "tddCap": {
             "description": "TDD capabilities as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
@@ -1397,28 +1397,28 @@
         "properties": {
           "ampduParameters": {
             "description": "A-MPDU parameters as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "Uint8",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "reserved": {
             "description": "",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "supportedMcs": {
             "description": "Supported MCS as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "trnParameters": {
             "description": "Training parameters as defined in draft IEEE P802.11/D4.0 [i.11]",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
@@ -1436,35 +1436,35 @@
         "properties": {
           "muMimoStaCount": {
             "description": "Indicates the total number of STAs currently associated with this BSS that have a 1 in the MU Beamformee Capable field of their VHT Capabilities element.",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt16"
           },
           "obsSec20MhzUtil": {
             "description": "Observable loading on each of the secondary 20 MHz channel.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "obsSec40MhzUtil": {
             "description": "Observable loading on each of the secondary 40 MHz channel.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "obsSec80MhzUtil": {
             "description": "Observable loading on each of the secondary 80 MHz channel.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "spatStreamUnderUtil": {
             "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP has underutilized spatial domain resources for given busy time of the medium.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
@@ -1484,28 +1484,28 @@
         "properties": {
           "altitude": {
             "description": "The altitude value of location as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "altitudeType": {
             "description": "The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "altitudeUncertainty": {
             "description": "The uncertainty for altitude information as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "datum": {
             "description": "The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1519,7 +1519,7 @@
           },
           "latUncertainty": {
             "description": "The uncertainty for Latitude information as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1533,7 +1533,7 @@
           },
           "longUncertainty": {
             "description": "The uncertainty for Longitude information as defined in IETF RFC 6225 [6]",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1553,12 +1553,14 @@
         "properties": {
           "heMacCapInfo": {
             "description": "MAC capabilities of an Access Point.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "hePhyCapinfo": {
             "description": "PHY capabilities of an Access Point.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1571,6 +1573,7 @@
           },
           "supportedHeMcsNssSet": {
             "description": "Supported MCS and NSS Set.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1588,42 +1591,42 @@
         "properties": {
           "ampduParameters": {
             "description": "A-MPDU parameters as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
           },
           "aselCap": {
             "description": "ASEL capabilities as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
           },
           "htCapabilityInfo": {
             "description": "HT Capability Information as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt16"
           },
           "htExtendedCap": {
             "description": "Extended HT Capabilities as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt16"
           },
           "supportedMcsSet": {
             "description": "Supported MCS set as defined in IEEE 802.11-2016 [8].",
-            "format": "int64",
+            "format": "uint128",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint128"
           },
           "txBeamFormCap": {
             "description": "Transmit Beamforming Capabilities as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt32"
@@ -1638,7 +1641,7 @@
           "aselCap"
         ],
         "type": "object",
-        "x-etsi-ref": "6.5.1"
+        "x-etsi-ref": "6.5.14"
       },
       "InlineNotification": {
         "oneOf": [
@@ -1730,25 +1733,28 @@
           },
           "bssidInfo": {
             "description": "Additional information related to Access Point that is being reported such as AP reachability, security, key scope, Mobility Domain, HT/VHT capability and Fine Time Measurements.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt32"
           },
           "channel": {
             "description": "The channel currently used by this Access Point.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "operatingClass": {
             "description": "The channel set of the AP indicated by this BSSID.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "phyType": {
             "description": "PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType.",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1781,7 +1787,7 @@
           },
           "status": {
             "description": "The HTTP status code for this occurrence of the problem",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -1806,7 +1812,7 @@
         "properties": {
           "rssi": {
             "description": "The Received Signal Strength Indicator from a station",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
@@ -1825,14 +1831,14 @@
           },
           "staLastDataDownlinkRate": {
             "description": "The data transmit rate in kbps that was most recently used for transmission of data PPDUs from the access point to the station.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "staLastDataUplinkRate": {
             "description": "The data transmit rate in Kbps that was most recently used for transmission of data PPDUs from the associated station to the access point.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -1971,7 +1977,7 @@
           },
           "channel": {
             "description": "Channel currently used by the station.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -2002,12 +2008,14 @@
         "properties": {
           "groupIdentity": {
             "description": "Indicates the requested statistics group describing the Statistics Group Data according to table 9-114 of IEEE 802.11-2016 [8].",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
           },
           "md": {
             "description": "Measurement Duration.",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt16"
@@ -2064,307 +2072,307 @@
       "StatisticsGroupData": {
         "properties": {
           "dot11AMPDUDelimiterCRCErrorCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11AMPDUReceivedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11AMSDUAckFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11AckFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11BeamformingFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11ChannelWidthSwitchCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11DualCTSFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11DualCTSSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11ExplicitBARFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FCSErrorCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FailedAMSDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FailedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FortyMHzFrameReceivedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FortyMHzFrameTransmittedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11FrameDuplicateCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11GrantedRDGUnusedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11GrantedRDGUsedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11GroupReceivedFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11GroupTransmittedFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11ImplicitBARFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11MPDUInReceivedAMPDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11MultipleRetryAMSDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11MultipleRetryCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11PSMPUTTGrantDuration": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11PSMPUTTUsedDuration": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosAckFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosDiscardedFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosFailedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosFrameDuplicateCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosMPDUsReceivedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosMultipleRetryCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosRTSFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosRTSSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosReceivedFragmentCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosRetriesReceivedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosRetryCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosTransmittedFragmentCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11QosTransmittedFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsBIPMICErrors": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsCCMPDecryptErrors": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsCCMPReplays": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsCMACReplays": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsRobustMgmtCCMPReplays": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsTKIPICVErrors": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RSNAStatsTKIPReplays": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RTSFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RTSLSIGFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RTSLSIGSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RTSSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11ReceivedAMSDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11ReceivedFragmentCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -2382,96 +2390,103 @@
             "x-etsi-mec-origin-type": "Uint64"
           },
           "dot11RetryAMSDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11RetryCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11STAStatisticsAPAverageAccessDelay": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsAverageAccessDelayBackGround": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsAverageAccessDelayBestEffort": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsAverageAccessDelayVideo": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsAverageAccessDelayVoice": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsChannelUtilization": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STAStatisticsStationCount": {
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "dot11STBCCTSFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11STBCCTSSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedAMPDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedAMSDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedFragmentCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedFrameCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedFramesInGrantedRDGCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedMPDUsInAMPDUCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -2483,37 +2498,37 @@
             "x-etsi-mec-origin-type": "Uint64"
           },
           "dot11TransmittedOctetsInAMSDUCount": {
-            "format": "int64",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TransmittedOctetsInGrantedRDGCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TwentyMHzFrameReceivedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11TwentyMHzFrameTransmittedCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11nonSTBCCTSFailureCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "dot11nonSTBCCTSSuccessCount": {
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "0..1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -2560,14 +2575,14 @@
         "properties": {
           "nanoSeconds": {
             "description": "The nanoseconds part of the time. Time is defined as Unix-time since January 1, 1970, 00:00:00 UTC.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "seconds": {
             "description": "The seconds part of the time. Time is defined as Unixtime since January 1, 1970, 00:00:00 UTC.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint32"
@@ -2584,7 +2599,7 @@
         "properties": {
           "vhtCapInfo": {
             "description": "VHT capabilities Info as defined in IEEE 802.11-2016 [8].",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt32"
@@ -2608,42 +2623,42 @@
         "properties": {
           "downlinkLoad": {
             "description": "1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt8"
           },
           "downlinkSpeed": {
             "description": "4-octet positive integer whose value is an estimate of the WAN Backhaul link current downlink speed in kilobits per second.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint32"
           },
           "lmd": {
             "description": "The LMD (Load Measurement Duration) field is a 2-octet positive integer representing the duration over which the Downlink Load and Uplink Load have been measured, in tenths of a second. When the actual load measurement duration is greater than the maximum value, the maximum value will be reported. The value of the LMD field is set to 0 when neither the uplink nor downlink load can be computed. When the uplink and downlink loads are computed over different intervals, the maximum interval is reported.",
-            "format": "int32",
+            "format": "uint16",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint16"
           },
           "uplinkLoad": {
             "description": "1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
           },
           "uplinkSpeed": {
             "description": "4-octet positive integer whose value is an estimate of the WAN Backhaul link's current uplink speed in kilobits per second.",
-            "format": "int32",
+            "format": "uint32",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "UInt32"
           },
           "wanInfo": {
             "description": "Info about WAN link status, link symmetricity and capacity currently used.",
-            "format": "int32",
+            "format": "uint8",
             "type": "integer",
             "x-etsi-mec-cardinality": "1",
             "x-etsi-mec-origin-type": "Uint8"
