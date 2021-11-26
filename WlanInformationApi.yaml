@@ -5,16 +5,26 @@ info:
   contact:
     url: https://forge.etsi.org/rep/mec/gs028-wai-api
   version: '2.2.1'
+  license:
+    name: BSD-3-Clause
+    url: 'https://forge.etsi.org/legal-matters'
 jsonSchemaDialect: https://json-schema.org/draft/2020-12/schema
 servers:
 - url: https://localhost/wai/v2
   variables: {}
+externalDocs:
+  description: ETSI MEC028 V2.2.1 WLAN Information API
+  url: https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.02.01_60/gs_mec028v020201p.pdf
+
+tags:
+- name: wai
+
 paths:
   /queries/ap/ap_information:
     get:
       tags:
       - wai
-      summary: apInfoGET
+      summary: 'Queries information about existing WLAN Access Points'
       description: Queries information about existing WLAN Access Points
       operationId: apInfoGET
       parameters:
@@ -119,7 +129,7 @@ paths:
     get:
       tags:
       - wai
-      summary: staInfoGET
+      summary: 'Queries information about existing WLAN stations'
       description: Queries information about existing WLAN stations
       operationId: staInfoGET
       parameters:
@@ -224,7 +234,7 @@ paths:
     get:
       tags:
       - wai
-      summary: subscriptionLinkList_subscriptionsGET
+      summary: 'Queries information on subscriptions for notifications'
       description: Queries information on subscriptions for notifications
       operationId: subscriptionLinkList_subscriptionsGET
       parameters:
@@ -243,6 +253,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionLinkList'
+              examples:
+                example-of-subscription-link-list:
+                  value:
+                   _links:
+                     self:
+                       href: 'http://meAppServer.example.com/wai/v2/subscriptions'
+                   subscription:
+                    - href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
+                      subscriptionType: AssocStaSubscription
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -289,7 +308,7 @@ paths:
     post:
       tags:
       - wai
-      summary: subscriptionsPOST
+      summary: 'Creates a new subscription to WLAN Access Information notifications'
       description: Creates a new subscription to WLAN Access Information notifications
       operationId: subscriptionsPOST
       parameters: []
@@ -316,18 +335,20 @@ paths:
                   ipAddress:
                   - 10.10.100.1
               contentMediaType: application/json
-            example:
-              subscriptionType: AssocStaSubscription
-              callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
-              expiryDeadline:
-                seconds: 1977836800
-                nanoSeconds: 0
-              apId:
-                bssid: 005C0A0A0A0A
-                ssid:
-                - myNetworkSsid
-                ipAddress:
-                - 10.10.100.1
+            examples:
+              example-of-AssocStaSubscription:
+                value:
+                 subscriptionType: AssocStaSubscription
+                 callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
+                 expiryDeadline:
+                   seconds: 1977836800
+                   nanoSeconds: 0
+                 apId:
+                   bssid: 005C0A0A0A0A
+                   ssid:
+                   - myNetworkSsid
+                   ipAddress:
+                   - 10.10.100.1
         required: true
       responses:
         '201':
@@ -356,21 +377,23 @@ paths:
                     ipAddress:
                     - 10.10.100.1
                 contentMediaType: application/json
-              example:
-                subscriptionType: AssocStaSubscription
-                callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
-                _links:
-                  self:
-                    href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
-                expiryDeadline:
-                  seconds: 1977836800
-                  nanoSeconds: 0
-                apId:
-                  bssid: 005C0A0A0A0A
-                  ssid:
-                  - myNetworkSsid
-                  ipAddress:
-                  - 10.10.100.1
+              examples:
+                example-of-assoc--sta-subscription:
+                  value:
+                   subscriptionType: AssocStaSubscription
+                   callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
+                   _links:
+                     self:
+                       href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
+                   expiryDeadline:
+                     seconds: 1977836800
+                     nanoSeconds: 0
+                   apId:
+                     bssid: 005C0A0A0A0A
+                     ssid:
+                     - myNetworkSsid
+                     ipAddress:
+                     - 10.10.100.1
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -420,13 +443,14 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-              example:
+              examples:
                 application/problem+json:
-                  type: https://meAppServer.example.com/wai/v2/probs/too-many targets
-                  title: Too many targets
-                  status: '422'
-                  detail: The target area for the request is considered too large
-                  instance: /meAppClient.example.com/77777/msgs/abc
+                  value:
+                   type: https://meAppServer.example.com/wai/v2/probs/too-many targets
+                   title: Too many targets
+                   status: 422
+                   detail: The target area for the request is considered too large
+                   instance: /meAppClient.example.com/77777/msgs/abc
         '429':
           description: 'Too Many Requests : used when a rate limiter has triggered.'
           headers: {}
@@ -435,12 +459,52 @@ paths:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
       deprecated: false
+      callbacks: 
+        notification:
+          '{$request.body#/callbackReference}':
+            post:
+              summary: Callback POST used to send a notification
+              description: 'Notification from WAIS, content based on subscription type'
+              operationId: notificationPOST
+              requestBody:
+                 description: Subscription notification
+                 required: true
+                 content:
+                   application/json:
+                     schema:
+                       $ref: '#/components/schemas/InlineNotification'
+                     examples:
+                       example-assoc-sta-notification:
+                         value:
+                           notificationType: AssocStaNotification
+                           timeStamp:
+                             seconds: 1977836800
+                             nanoSeconds: 0
+                           apId:
+                             bssid: 005C0A0A0A0A
+                             ssid:
+                               - myNetworkSsid
+                             ipAddress:
+                               - 10.10.100.1
+                           staId:
+                             macId: 005C01111111
+                             ssid:
+                               - myNetworkSsid
+                               - myOtherNetworkSsid
+                             aid: '1122'
+                             ipAddress:
+                               - 10.10.1.255
+              responses:
+                '204':
+                 description: "No content"
+
+
     parameters: []
   /subscriptions/{subscriptionId}:
     get:
       tags:
       - wai
-      summary: subscriptionsGET
+      summary: 'Queries information about an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       description: Queries information about an existing subscription, identified by its self-referring URI returned on creation (initial POST)
       operationId: subscriptionsGET
       parameters:
@@ -478,21 +542,23 @@ paths:
                     ipAddress:
                     - 10.10.100.1
                 contentMediaType: application/json
-              example:
-                subscriptionType: AssocStaSubscription
-                callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
-                _links:
-                  self:
-                    href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
-                expiryDeadline:
-                  seconds: 1977836800
-                  nanoSeconds: 0
-                apId:
-                  bssid: 005C0A0A0A0A
-                  ssid:
-                  - myNetworkSsid
-                  ipAddress:
-                  - 10.10.100.1
+              examples:
+                example-of-assoc-sta-subscription:
+                 value:
+                   subscriptionType: AssocStaSubscription
+                   callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
+                   _links:
+                     self:
+                       href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
+                   expiryDeadline:
+                     seconds: 1977836800
+                     nanoSeconds: 0
+                   apId:
+                     bssid: 005C0A0A0A0A
+                     ssid:
+                     - myNetworkSsid
+                     ipAddress:
+                     - 10.10.100.1
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -539,7 +605,7 @@ paths:
     put:
       tags:
       - wai
-      summary: subscriptionsPUT
+      summary: 'Updates an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       description: Updates an existing subscription, identified by its self-referring URI returned on creation (initial POST)
       operationId: subscriptionsPUT
       parameters:
@@ -576,21 +642,24 @@ paths:
                   ipAddress:
                   - 10.10.100.1
               contentMediaType: application/json
-            example:
-              subscriptionType: AssocStaSubscription
-              callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
-              _links:
-                self:
-                  href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
-              expiryDeadline:
-                seconds: 1977836800
-                nanoSeconds: 0
-              apId:
-                bssid: 005C0A0A0A0A
-                ssid:
-                - myNetworkSsid
-                ipAddress:
-                - 10.10.100.1
+            examples:
+              example-of-assoc-sta-subscription:
+                value:
+
+                 subscriptionType: AssocStaSubscription
+                 callbackReference: http://meAppClient.example.com/wai/v2/notifications/1
+                 _links:
+                   self:
+                     href: http://meAppServer.example.com/wai/v2/subscriptions/sub123
+                 expiryDeadline:
+                   seconds: 1977836800
+                   nanoSeconds: 0
+                 apId:
+                   bssid: 005C0A0A0A0A
+                   ssid:
+                   - myNetworkSsid
+                   ipAddress:
+                   - 10.10.100.1
         required: true
       responses:
         '200':
@@ -615,17 +684,20 @@ paths:
                     ipAddress:
                     - 10.10.100.1
                 contentMediaType: application/json
-              example:
-                _links:
-                  self:
+              examples:
+                example-sub-type:
+                 value:
+                  subscriptionType: "AssocStaSubscription"
+                  _links:
+                   self:
                     href: http://[hostIP]/sbox-xyz123/wai/v2/subscriptions/sub123
-                callbackReference: http://my.callback.com/wai/some-id
-                apId:
-                  bssid: 005C0A0A0A0A
-                  ssid:
-                  - myNetworkSsid
-                  ipAddress:
-                  - 10.10.100.1
+                  callbackReference: http://my.callback.com/wai/some-id
+                  apId:
+                   bssid: 005C0A0A0A0A
+                   ssid:
+                   - myNetworkSsid
+                   ipAddress:
+                   - 10.10.100.1
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -675,13 +747,14 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-              example:
+              examples:
                 application/problem+json:
-                  type: https://meAppServer.example.com/wai/v2/probs/too-many targets
-                  title: Too many targets
-                  status: '422'
-                  detail: The target area for the request is considered too large
-                  instance: /meAppClient.example.com/77777/msgs/abc
+                  value:
+                   type: https://meAppServer.example.com/wai/v2/probs/too-many targets
+                   title: Too many targets
+                   status: 422
+                   detail: The target area for the request is considered too large
+                   instance: /meAppClient.example.com/77777/msgs/abc
         '429':
           description: 'Too Many Requests : used when a rate limiter has triggered.'
           headers: {}
@@ -693,7 +766,7 @@ paths:
     delete:
       tags:
       - wai
-      summary: subscriptionsDELETE
+      summary: 'Cancels an existing subscription, identified by its self-referring URI returned on creation (initial POST)'
       description: Cancels an existing subscription, identified by its self-referring URI returned on creation (initial POST)
       operationId: subscriptionsDELETE
       parameters:
@@ -743,7 +816,7 @@ paths:
     get:
       tags:
       - wai
-      summary: measurementLinkList_measurementsGET
+      summary: 'Queries information on measurements configuration'
       description: Queries information on measurements configuration
       operationId: measurementLinkList_measurementsGET
       parameters: []
@@ -755,13 +828,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MeasurementConfigLinkList'
-              example:
-                _links:
-                  self:
-                    href: http://meAppServer.example.com/wai/v2/measurements
-                measurementConfig:
-                - href: http://meAppServer.example.com/wai/v2/measurements/meas123
-                  measurementId: myId1
+              examples:
+                example-measurement:
+                  value:
+                   _links:
+                     self:
+                       href: http://meAppServer.example.com/wai/v2/measurements
+                   measurementConfig:
+                   - href: http://meAppServer.example.com/wai/v2/measurements/meas123
+                     measurementId: myId1
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -808,7 +883,7 @@ paths:
     post:
       tags:
       - wai
-      summary: measurementsPOST
+      summary: 'Creates a new measurement configuration'
       description: Creates a new measurement configuration
       operationId: measurementsPOST
       parameters: []
@@ -818,6 +893,16 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/MeasurementConfig'
+            examples:
+              example-body:
+                value:
+                 staId:
+                 - macId: 005C01111111
+                   ssid:
+                     - myNetworkSsid
+                     - myOtherNetworkSsid
+                 measurementId: myId1
+                 measurementInfo: {}
         required: true
       responses:
         '201':
@@ -827,6 +912,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MeasurementConfig'
+              examples:
+                example-response:
+                  value:
+                   _links:
+                     self:
+                       href: 'http://meAppServer.example.com/wai/v2/measurements/meas123'
+                   staId:
+                   - macId: 005C01111111
+                     ssid:
+                       - myNetworkSsid
+                       - myOtherNetworkSsid
+                   measurementId: myId1
+                   measurementInfo: {}
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -876,13 +974,14 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-              example:
+              examples:
                 application/problem+json:
-                  type: https://meAppServer.example.com/wai/v2/probs/too-many targets
-                  title: Too many targets
-                  status: '422'
-                  detail: The target area for the request is considered too large
-                  instance: /meAppClient.example.com/77777/msgs/abc
+                  value:
+                   type: https://meAppServer.example.com/wai/v2/probs/too-many targets
+                   title: Too many targets
+                   status: 422
+                   detail: The target area for the request is considered too large
+                   instance: /meAppClient.example.com/77777/msgs/abc
         '429':
           description: 'Too Many Requests : used when a rate limiter has triggered.'
           headers: {}
@@ -896,7 +995,7 @@ paths:
     get:
       tags:
       - wai
-      summary: measurementsGET
+      summary: 'Queries information about an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)'
       description: Queries information about an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)
       operationId: measurementsGET
       parameters:
@@ -915,6 +1014,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MeasurementConfig'
+
+              examples:
+                response-example:
+                  value:
+                   _links:
+                     self:
+                       href: 'http://meAppServer.example.com/wai/v2/measurements/meas123'
+                   staId:
+                   - macId: 005C01111111
+                     ssid:
+                       - myNetworkSsid
+                       - myOtherNetworkSsid
+                   measurementId: myId1
+                   measurementInfo: {}
+
         '400':
           description: 'Bad Request : used to indicate that incorrect parameters were passed to the request.'
           headers: {}
@@ -961,7 +1075,7 @@ paths:
     put:
       tags:
       - wai
-      summary: measurementsPUT
+      summary: 'Updates an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)'
       description: Updates an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)
       operationId: measurementsPUT
       parameters:
@@ -1036,13 +1150,14 @@ paths:
             application/problem+json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-              example:
+              examples:
                 application/problem+json:
-                  type: https://meAppServer.example.com/wai/v2/probs/too-many targets
-                  title: Too many targets
-                  status: '422'
-                  detail: The target area for the request is considered too large
-                  instance: /meAppClient.example.com/77777/msgs/abc
+                  value:
+                   type: https://meAppServer.example.com/wai/v2/probs/too-many targets
+                   title: Too many targets
+                   status: 422
+                   detail: The target area for the request is considered too large
+                   instance: /meAppClient.example.com/77777/msgs/abc
         '429':
           description: 'Too Many Requests : used when a rate limiter has triggered.'
           headers: {}
@@ -1054,7 +1169,7 @@ paths:
     delete:
       tags:
       - wai
-      summary: measurementsDELETE
+      summary: 'Cancels an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)'
       description: Cancels an existing measurement configuration, identified by its self-referring URI returned on creation (initial POST)
       operationId: measurementsDELETE
       parameters:
@@ -2817,8 +2932,4 @@ components:
       - 1
 security:
 - {}
-tags:
-- name: wai
-externalDocs:
-  description: ETSI MEC028 V2.2.1 WLAN Information API
-  url: https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.02.01_60/gs_mec028v020201p.pdf
+
