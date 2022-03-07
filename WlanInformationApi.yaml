@@ -1230,13 +1230,11 @@ components:
           type: string
           description: Basic Service Set Identifier (BSSID) is a unique identifier assigned to the Access Point (as network interface controller) for communications at the data link layer of a network segment. BSSID is typically set to an access point's MAC address.
         ipAddress:
-          minItems: 0
           type: array
           items:
             type: string
           description: IPv4 or IPv6 address allocated for the Access Point.
         ssid:
-          minItems: 0
           type: array
           items:
             type: string
@@ -1251,13 +1249,11 @@ components:
           type: string
           description: Basic Service Set Identifier (BSSID) is a unique Identifier assigned to an Access Point (as network interface controller) for communications at the data link layer of a network segment. BSSID is typically set to an access point's MAC address.
         ipAddress:
-          minItems: 0
           type: array
           items:
             type: string
           description: IPv4 or IPv6 address allocated for the Access Point.
         ssid:
-          minItems: 0
           type: array
           items:
             type: string
@@ -1307,7 +1303,6 @@ components:
           apId:
             $ref: '#/components/schemas/ApIdentity'
           staId:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/StaIdentity'
@@ -1328,6 +1323,7 @@ components:
             $ref: '#/components/schemas/ApIdentity'
           callbackReference:
             type: string
+            description: URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a.
           expiryDeadline:
             $ref: '#/components/schemas/TimeStamp'
           notificationEvent:
@@ -1335,15 +1331,14 @@ components:
           notificationPeriod:
             type: integer
             description: >-
-              Set for periodic notification reporting.
-
-              Value indicates the notification period in seconds.
+              Set for periodic notification reporting.Value indicates the notification period in seconds.
             contentEncoding: int32
           requestTestNotification:
             type: boolean
-            description: Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications.
+            description: Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a.
           websockNotifConfig:
             $ref: '#/components/schemas/WebsockNotifConfig'
+            description: Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a.
     BeaconReport:
       title: BeaconReport
       required:
@@ -1356,7 +1351,7 @@ components:
       properties:
         antennaId:
           type: integer
-          description: The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in section 9.4.2.40 of IEEE 802.11-2016 [8].
+          description: The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.
           contentEncoding: int32
         bssid:
           type: string
@@ -1370,7 +1365,7 @@ components:
           description: Measurement ID of the Measurement configuration applied to this Beacon Report.
         operatingClass:
           type: integer
-          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].
+          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.
           contentEncoding: int32
         parentTsf:
           type: integer
@@ -1378,13 +1373,13 @@ components:
           contentEncoding: int32
         rcpi:
           type: integer
-          description: RCPI indicates the received channel power of the Beacon, Measurement Pilot, or Probe Response frame, which is a logarithmic function of the received signal power, as defined in section 9.4.2.38 of IEEE 802.11-2016 [8].
+          description: RCPI indicates the received channel power of the Beacon, Measurement Pilot, or Probe Response frame, which is a logarithmic function of the received signal power, as defined in clause .4.2.38 of IEEE 802.11-2016.
           contentEncoding: int32
         reportedFrameInfo:
           $ref: '#/components/schemas/ReportedBeaconFrameInfo'
         rsni:
           type: integer
-          description: RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in section 9.4.2.41 of IEEE 802.11-2016 [8].
+          description: RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in clause 9.4.2.41 of IEEE 802.11-2016.
           contentEncoding: int32
         ssid:
           type: string
@@ -1401,7 +1396,7 @@ components:
         reportingCondition:
           type: integer
           description: >-
-            Reporting condition for the Beacon Report as per Table 9-89 of IEEE 802.11-2016 [8]:
+            Reporting condition for the Beacon Report as per Table 9-89 of IEEE 802.11-2016:
 
             0 = Report to be issued after each measurement.
 
@@ -1431,10 +1426,10 @@ components:
             The threshold subfield contains either the threshold value or the offset value to be used for conditional reporting.
 
 
-            For reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in section 9.4.2.38 of IEEE 802.11-2016 [8].
+            For reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in clause 9.4.2.38 of IEEE 802.11-2016 .
 
 
-            For reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in section 9.4.2.41 of IEEE 802.11-2016 [8].
+            For reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in clause 9.4.2.41 of IEEE 802.11-2016 .
 
 
             For reportingCondition subfield values 5 to 10, the offset value is an 8-bit 2s complement integer in units of 0,5 dBm. The indicated reporting condition applies individually to each measured Beacon, Measurement Pilot, or Probe Response frame.
@@ -1468,7 +1463,7 @@ components:
           contentEncoding: int32
         operatingClass:
           type: integer
-          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 [8].
+          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 .
           contentEncoding: int32
         ssid:
           type: string
@@ -1599,7 +1594,7 @@ components:
           description: Measurement ID of the Measurement configuration applied to this Channel Load Report.
         operatingClass:
           type: integer
-          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].
+          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 .
           contentEncoding: int32
         staId:
           $ref: '#/components/schemas/StaIdentity'
@@ -1616,12 +1611,12 @@ components:
           contentEncoding: int32
         operatingClass:
           type: integer
-          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].
+          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.
           contentEncoding: int32
         reportingCondition:
           type: integer
           description: >-
-            Reporting condition for the Beacon Report as per Table 9-153 of IEEE 802.11-2016 [8]:
+            Reporting condition for the Beacon Report as per Table 9-153 of IEEE 802.11-2016:
 
             0 = Report to be issued after each measurement.
 
@@ -1710,7 +1705,7 @@ components:
           description: Additional code
         ca33:
           type: string
-          description: Seat (desk.cubicle, workstation)
+          description: Seat (desk.cubicle, workstation, etc.)
         ca34:
           type: string
           description: Primary road name
@@ -1754,27 +1749,27 @@ components:
       properties:
         ExtScMcsCap:
           type: integer
-          description: Extended SC MCS capabilities as defined in IEEE 802.11-2016 [8].
+          description: Extended SC MCS capabilities as defined in IEEE 802.11-2016.
           contentEncoding: int32
         dmgApOrPcpCapInfo:
           type: integer
-          description: DMG AP or PCP capabilities information as defined in IEEE 802.11-2016 [8].
+          description: DMG AP or PCP capabilities information as defined in IEEE 802.11-2016.
           contentEncoding: int32
         dmgStaBeamTrackTimeLimit:
           type: integer
-          description: DMG station beam tracking time limit as defined in IEEE 802.11-2016 [8].
+          description: DMG station beam tracking time limit as defined in IEEE 802.11-2016.
           contentEncoding: int32
         dmgStaCapInfo:
           type: integer
-          description: DMG station capabilities information as defined in IEEE 802.11-2016 [8].
+          description: DMG station capabilities information as defined in IEEE 802.11-2016.
           contentEncoding: int32
         maxNrBasicAmsduSubframes:
           type: integer
-          description: Number of basic A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016 [8].
+          description: Number of basic A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016.
           contentEncoding: int32
         maxNrShortAmsduSubframes:
           type: integer
-          description: Number of short A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016 [8].
+          description: Number of short A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016.
           contentEncoding: int32
     EdmgCapabilities:
       title: EdmgCapabilities
@@ -1853,35 +1848,35 @@ components:
       properties:
         altitude:
           type: integer
-          description: The altitude value of location as defined in IETF RFC 6225 [6]
+          description: The altitude value of location as defined in IETF RFC 6225 
           contentEncoding: int32
         altitudeType:
           type: integer
-          description: The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225 [6]
+          description: The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225 
           contentEncoding: int32
         altitudeUncertainty:
           type: integer
-          description: The uncertainty for altitude information as defined in IETF RFC 6225 [6]
+          description: The uncertainty for altitude information as defined in IETF RFC 6225 
           contentEncoding: int32
         datum:
           type: integer
-          description: The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225 [6]
+          description: The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225 
           contentEncoding: int32
         lat:
           type: integer
-          description: The latitude value of location as defined in IETF RFC 6225 [6]
+          description: The latitude value of location as defined in IETF RFC 6225 
           contentEncoding: int32
         latUncertainty:
           type: integer
-          description: The uncertainty for Latitude information as defined in IETF RFC 6225 [6]
+          description: The uncertainty for Latitude information as defined in IETF RFC 6225 
           contentEncoding: int32
         long:
           type: integer
-          description: The longitude value of location as defined in IETF RFC 6225 [6]
+          description: The longitude value of location as defined in IETF RFC 6225 
           contentEncoding: int32
         longUncertainty:
           type: integer
-          description: The uncertainty for Longitude information as defined in IETF RFC 6225 [6]
+          description: The uncertainty for Longitude information as defined in IETF RFC 6225 
           contentEncoding: int32
     HeCapabilities:
       title: HeCapabilities
@@ -1916,27 +1911,27 @@ components:
       properties:
         ampduParameters:
           type: integer
-          description: A-MPDU parameters as defined in IEEE 802.11-2016 [8].
+          description: A-MPDU parameters as defined in IEEE 802.11-2016.
           contentEncoding: int32
         aselCap:
           type: integer
-          description: ASEL capabilities as defined in IEEE 802.11-2016 [8].
+          description: ASEL capabilities as defined in IEEE 802.11-2016.
           contentEncoding: int32
         htCapabilityInfo:
           type: integer
-          description: HT Capability Information as defined in IEEE 802.11-2016 [8].
+          description: HT Capability Information as defined in IEEE 802.11-2016.
           contentEncoding: int32
         htExtendedCap:
           type: integer
-          description: Extended HT Capabilities as defined in IEEE 802.11-2016 [8].
+          description: Extended HT Capabilities as defined in IEEE 802.11-2016.
           contentEncoding: int32
         supportedMcsSet:
           type: integer
-          description: Supported MCS set as defined in IEEE 802.11-2016 [8].
+          description: Supported MCS set as defined in IEEE 802.11-2016.
           contentEncoding: int32
         txBeamFormCap:
           type: integer
-          description: Transmit Beamforming Capabilities as defined in IEEE 802.11-2016 [8].
+          description: Transmit Beamforming Capabilities as defined in IEEE 802.11-2016.
           contentEncoding: int32
     LinkType:
       title: LinkType
@@ -1962,7 +1957,6 @@ components:
         measurementInfo:
           $ref: '#/components/schemas/MeasurementInfo'
         staId:
-          minItems: 1
           type: array
           items:
             $ref: '#/components/schemas/StaIdentity'
@@ -1990,13 +1984,13 @@ components:
           $ref: '#/components/schemas/ChannelLoadConfig'
         measurementDuration:
           type: integer
-          description: Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in section 11.11.4 of IEEE 802.11-2016 [8]. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.
+          description: Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in clause 11.11.4 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.
           contentEncoding: int32
         neighborReportConf:
           $ref: '#/components/schemas/NeighborReportConfig'
         randomInterval:
           type: integer
-          description: Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in section 11.11.3 of IEEE 802.11-2016 [8]. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.
+          description: Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in clause 11.11.3 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.
           contentEncoding: int32
         staStatisticsConf:
           $ref: '#/components/schemas/StaStatisticsConfig'
@@ -2007,29 +2001,25 @@ components:
       - type: object
         properties:
           beaconReport:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/BeaconReport'
-            description: Beacon Report as defined in IEEE 802.11-2016 [8].
+            description: Beacon Report as defined in IEEE 802.11-2016.
           channelLoad:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/ChannelLoad'
-            description: Channel Load reports as seen by the station as defined in IEEE 802.11-2016 [8].
+            description: Channel Load reports as seen by the station as defined in IEEE 802.11-2016.
           neighborReport:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/NeighborReport'
-            description: Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016 [8].
+            description: Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016.
           staStatistics:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/StaStatistics'
-            description: STA Statistics Report as defined in IEEE 802.11-2016 [8].
+            description: STA Statistics Report as defined in IEEE 802.11-2016.
           timeStamp:
             $ref: '#/components/schemas/TimeStamp'
     MeasurementReportSubscription:
@@ -2046,6 +2036,7 @@ components:
             $ref: '#/components/schemas/Links'
           callbackReference:
             type: string
+            description: URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a.
           expiryDeadline:
             $ref: '#/components/schemas/TimeStamp'
           measurementId:
@@ -2055,15 +2046,15 @@ components:
             $ref: '#/components/schemas/MeasurementInfo'
           requestTestNotification:
             type: boolean
-            description: Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications.
+            description: Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a.
           staId:
-            minItems: 1
             type: array
             items:
               $ref: '#/components/schemas/StaIdentity'
             description: Identifier(s) to uniquely specify the target client station(s) for the subscription.
           websockNotifConfig:
             $ref: '#/components/schemas/WebsockNotifConfig'
+            description: Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a.
     NeighborReport:
       title: NeighborReport
       required:
@@ -2077,7 +2068,7 @@ components:
       properties:
         bssTransitionCandidatePreference:
           type: integer
-          description: Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016 [8].
+          description: Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016.
           contentEncoding: int32
         bssid:
           type: string
@@ -2086,19 +2077,19 @@ components:
           $ref: '#/components/schemas/BssidInfo'
         channel:
           type: integer
-          description: Channel field indicates a channel number, which is interpreted in the context of the indicated operating class. Channel numbers are defined in Annex E within IEEE 802.11-2016 [8].
+          description: Channel field indicates a channel number, which is interpreted in the context of the indicated operating class. Channel numbers are defined in Annex E within IEEE 802.11-2016.
           contentEncoding: int32
         measurementId:
           type: string
           description: Measurement ID of the Measurement configuration applied to this Neighbor Report.
         operatingClass:
           type: integer
-          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].
+          description: Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.
           contentEncoding: int32
         phyType:
           type: integer
           description: >-
-            PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016 [8].
+            PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016.
 
             2 = dsss
 
@@ -2322,7 +2313,6 @@ components:
       - type: object
         properties:
           staDataRate:
-            minItems: 0
             type: array
             items:
               $ref: '#/components/schemas/StaDataRate'
@@ -2341,6 +2331,7 @@ components:
             $ref: '#/components/schemas/Links'
           callbackReference:
             type: string
+            description: URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a.
           expiryDeadline:
             $ref: '#/components/schemas/TimeStamp'
           notificationEvent:
@@ -2348,21 +2339,19 @@ components:
           notificationPeriod:
             type: integer
             description: >-
-              Set for periodic notification reporting.
-
-              Value indicates the notification period in seconds.
+              Set for periodic notification reporting.Value indicates the notification period in seconds.
             contentEncoding: int32
           requestTestNotification:
             type: boolean
-            description: Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications.
+            description: Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a.
           staId:
-            minItems: 1
             type: array
             items:
               $ref: '#/components/schemas/StaIdentity'
             description: Identifier(s) to uniquely specify the target client station(s) for the subscription.
           websockNotifConfig:
             $ref: '#/components/schemas/WebsockNotifConfig'
+            description: Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a
     StaIdentity:
       title: StaIdentity
       required:
@@ -2373,7 +2362,6 @@ components:
           type: string
           description: Number which identifies a particular association between a station and an Access Point
         ipAddress:
-          minItems: 0
           type: array
           items:
             type: string
@@ -2382,7 +2370,6 @@ components:
           type: string
           description: Unique identifier assigned to station (as network interface controller) for communications at the data link layer of a network segment.
         ssid:
-          minItems: 0
           type: array
           items:
             type: string
@@ -2396,27 +2383,24 @@ components:
         apAssociated:
           $ref: '#/components/schemas/ApAssociated'
         beaconReport:
-          minItems: 0
           type: array
           items:
             $ref: '#/components/schemas/BeaconReport'
-          description: Beacon Report as defined in IEEE 802.11-2016 [8].
+          description: Beacon Report as defined in IEEE 802.11-2016.
         channel:
           type: integer
           description: Channel currently used by the station to connect with its associated Access Point.
           contentEncoding: int32
         channelLoad:
-          minItems: 0
           type: array
           items:
             $ref: '#/components/schemas/ChannelLoad'
-          description: Channel Load reports as seen by the station as defined IEEE 802.11-2016 [8]. Channel Load reports may be configured for any channel, including the station's current channel for association.
+          description: Channel Load reports as seen by the station as defined IEEE 802.11-2016. Channel Load reports may be configured for any channel, including the station's current channel for association.
         neighborReport:
-          minItems: 0
           type: array
           items:
             $ref: '#/components/schemas/NeighborReport'
-          description: Information about neighbor Access Points seen by the station as defined IEEE 802.11-2016 [8].
+          description: Information about neighbor Access Points seen by the station as defined IEEE 802.11-2016.
         rssi:
           $ref: '#/components/schemas/Rssi'
         staDataRate:
@@ -2424,11 +2408,10 @@ components:
         staId:
           $ref: '#/components/schemas/StaIdentity'
         staStatistics:
-          minItems: 0
           type: array
           items:
             $ref: '#/components/schemas/StaStatistics'
-          description: Statistics as defined in IEEE 802.11-2016 [8] for the client station collected over measurement duration.
+          description: Statistics as defined in IEEE 802.11-2016 for the client station collected over measurement duration.
         timeStamp:
           $ref: '#/components/schemas/TimeStamp'
     StaStatistics:
@@ -2444,7 +2427,7 @@ components:
         groupIdentity:
           type: integer
           description: >-
-            Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016 [8].
+            Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016.
 
             Depending on group identity, one and only one of the STA Statistics Group Data will be present.
           contentEncoding: int32
@@ -2470,7 +2453,7 @@ components:
       properties:
         groupIdentity:
           type: integer
-          description: As per Table 9-92 of IEEE 802.11-2016 [8].
+          description: As per Table 9-92 of IEEE 802.11-2016.
           contentEncoding: int32
         measurementCount:
           type: integer
@@ -2691,11 +2674,11 @@ components:
       properties:
         vhtCapInfo:
           type: integer
-          description: VHT capabilities Info as defined in IEEE 802.11-2016 [8].
+          description: VHT capabilities Info as defined in IEEE 802.11-2016.
           contentEncoding: int32
         vhtMcsNss:
           type: integer
-          description: Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016 [8].
+          description: Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016.
           contentEncoding: int32
     WanMetrics:
       title: WanMetrics
