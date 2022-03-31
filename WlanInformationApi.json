@@ -2077,7 +2077,7 @@
         "properties": {
           "antennaId": {
             "type": "integer",
-            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.",
+            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "bssid": {
