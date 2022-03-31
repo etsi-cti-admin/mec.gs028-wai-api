@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://forge.etsi.org/rep/mec/gs028-wai-api"
     },
-    "version": "2.2.1",
+    "version": "2.2.6",
     "license": {
       "name": "BSD-3-Clause",
       "url": "https://forge.etsi.org/legal-matters"
@@ -19,10 +19,6 @@
       "variables": {}
     }
   ],
-  "externalDocs": {
-    "description": "ETSI MEC028 V2.2.1 WLAN Information API",
-    "url": "https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.02.01_60/gs_mec028v020201p.pdf"
-  },
   "tags": [
     {
       "name": "wai"
@@ -2117,7 +2113,7 @@
           },
           "rsni": {
             "type": "integer",
-            "description": "RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in clause 9.4.2.41 of IEEE 802.11-2016.",
+            "description": "RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in clause 9.4.2.41 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "ssid": {
@@ -2144,7 +2140,7 @@
           },
           "threshold": {
             "type": "integer",
-            "description": "The threshold subfield contains either the threshold value or the offset value to be used for conditional reporting.\n\nFor reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in clause 9.4.2.38 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in clause 9.4.2.41 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 5 to 10, the offset value is an 8-bit 2s complement integer in units of 0,5 dBm. The indicated reporting condition applies individually to each measured Beacon, Measurement Pilot, or Probe Response frame.",
+            "description": "The threshold subfield contains either the threshold value or the offset value to be used for conditional reporting.\n\nFor reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in clause 9.4.2.38 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in clause 9.4.2.41 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 5 to 10, the offset value is an 8-bit 2s complement integer in units of 0,5 dBm. The indicated reporting condition applies individually to each measured Beacon, Measurement Pilot, or Probe Response frame.",
             "contentEncoding": "int32"
           }
         }
@@ -2168,7 +2164,7 @@
           },
           "channelId": {
             "type": "integer",
-            "description": "Channel number to scan. A Channel Number of 0 indicates a request to make iterative measurements for all supported channels in the Operating Class where the measurement is permitted on the channel and the channel is valid for the current regulatory domain. A Channel Number of 255 indicates a request to make iterative measurements for all supported channels in the current Operating Class listed in the latest AP Channel Report received from the serving AP.",
+            "description": "Channel number to scan. A Channel Number of 0 indicates a request to make iterative measurements for all supported channels in the Operating Class where the measurement is permitted on the channel and the channel is valid for the current regulatory domain. A Channel Number of 255 indicates a request to make iterative measurements for all supported channels in the current Operating Class listed in the latest AP Channel Report received from the serving AP.",
             "contentEncoding": "int32"
           },
           "measurementMode": {
@@ -2178,7 +2174,7 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 .",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 .",
             "contentEncoding": "int32"
           },
           "ssid": {
@@ -2241,7 +2237,7 @@
           },
           "channelUtilization": {
             "type": "integer",
-            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism.",
+            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism.",
             "contentEncoding": "int32"
           },
           "staCount": {
@@ -2312,7 +2308,7 @@
           },
           "channelLoad": {
             "type": "integer",
-            "description": "Proportion of measurement duration for which the measuring STA determined the channel to be busy, as a percentage of time, linearly scaled with 255 representing 100 %.",
+            "description": "Proportion of measurement duration for which the measuring STA determined the channel to be busy, as a percentage of time, linearly scaled with 255 representing 100 %.",
             "contentEncoding": "int32"
           },
           "measurementDuration": {
@@ -2519,7 +2515,7 @@
         "properties": {
           "ExtScMcsCap": {
             "type": "integer",
-            "description": "Extended SC MCS capabilities as defined in IEEE 802.11-2016.",
+            "description": "Extended SC MCS capabilities as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "dmgApOrPcpCapInfo": {
@@ -2529,12 +2525,12 @@
           },
           "dmgStaBeamTrackTimeLimit": {
             "type": "integer",
-            "description": "DMG station beam tracking time limit as defined in IEEE 802.11-2016.",
+            "description": "DMG station beam tracking time limit as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "dmgStaCapInfo": {
             "type": "integer",
-            "description": "DMG station capabilities information as defined in IEEE 802.11-2016.",
+            "description": "DMG station capabilities information as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "maxNrBasicAmsduSubframes": {
@@ -2629,7 +2625,7 @@
           },
           "spatStreamUnderUtil": {
             "type": "integer",
-            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP has underutilized spatial domain resources for given busy time of the medium.",
+            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP has underutilized spatial domain resources for given busy time of the medium.",
             "contentEncoding": "int32"
           }
         }
@@ -2647,7 +2643,7 @@
         "properties": {
           "altitude": {
             "type": "integer",
-            "description": "The altitude value of location as defined in IETF RFC 6225",
+            "description": "The altitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "altitudeType": {
@@ -2667,7 +2663,7 @@
           },
           "lat": {
             "type": "integer",
-            "description": "The latitude value of location as defined in IETF RFC 6225",
+            "description": "The latitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "latUncertainty": {
@@ -2677,7 +2673,7 @@
           },
           "long": {
             "type": "integer",
-            "description": "The longitude value of location as defined in IETF RFC 6225",
+            "description": "The longitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "longUncertainty": {
@@ -2828,7 +2824,7 @@
           },
           "measurementDuration": {
             "type": "integer",
-            "description": "Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in clause 11.11.4 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
+            "description": "Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in clause 11.11.4 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
             "contentEncoding": "int32"
           },
           "neighborReportConf": {
@@ -2836,7 +2832,7 @@
           },
           "randomInterval": {
             "type": "integer",
-            "description": "Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in clause 11.11.3 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
+            "description": "Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in clause 11.11.3 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
             "contentEncoding": "int32"
           },
           "staStatisticsConf": {
@@ -2872,7 +2868,7 @@
                 "items": {
                   "$ref": "#/components/schemas/NeighborReport"
                 },
-                "description": "Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016."
+                "description": "Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016."
               },
               "staStatistics": {
                 "type": "array",
@@ -2952,7 +2948,7 @@
         "properties": {
           "bssTransitionCandidatePreference": {
             "type": "integer",
-            "description": "Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016.",
+            "description": "Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016.",
             "contentEncoding": "int32"
           },
           "bssid": {
@@ -2978,7 +2974,7 @@
           },
           "phyType": {
             "type": "integer",
-            "description": "PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016.\n2 = dsss\n4 = ofdm\n5 = hrdsss\n6 = erp\n7 = ht\n8 = dmg\n9 = vht\n10 = tvht",
+            "description": "PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016.\n2 = dsss\n4 = ofdm\n5 = hrdsss\n6 = erp\n7 = ht\n8 = dmg\n9 = vht\n10 = tvht",
             "contentEncoding": "int32"
           },
           "staId": {
@@ -3010,7 +3006,7 @@
         "properties": {
           "allocatedTrafficSelfMean": {
             "type": "integer",
-            "description": "Mean of allocated traffic from this AP (BSS) in units of 32 µs per second.",
+            "description": "Mean of allocated traffic from this AP (BSS) in units of 32 µs per second.",
             "contentEncoding": "int32"
           },
           "allocatedTrafficSelfStdDev": {
@@ -3372,7 +3368,7 @@
             "items": {
               "$ref": "#/components/schemas/ChannelLoad"
             },
-            "description": "Channel Load reports as seen by the station as defined IEEE 802.11-2016. Channel Load reports may be configured for any channel, including the station's current channel for association."
+            "description": "Channel Load reports as seen by the station as defined IEEE 802.11-2016. Channel Load reports may be configured for any channel, including the station's current channel for association."
           },
           "neighborReport": {
             "type": "array",
@@ -3416,7 +3412,7 @@
           },
           "groupIdentity": {
             "type": "integer",
-            "description": "Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016.\nDepending on group identity, one and only one of the STA Statistics Group Data will be present.",
+            "description": "Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016.\nDepending on group identity, one and only one of the STA Statistics Group Data will be present.",
             "contentEncoding": "int32"
           },
           "groupOneData": {
@@ -3750,7 +3746,7 @@
         "properties": {
           "downlinkLoad": {
             "type": "integer",
-            "description": "1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.",
+            "description": "1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.",
             "contentEncoding": "int32"
           },
           "downlinkSpeed": {
@@ -3765,7 +3761,7 @@
           },
           "uplinkLoad": {
             "type": "integer",
-            "description": "1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.",
+            "description": "1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.",
             "contentEncoding": "int32"
           },
           "uplinkSpeed": {
