@@ -6,7 +6,7 @@
     "contact": {
       "url": "https://forge.etsi.org/rep/mec/gs028-wai-api"
     },
-    "version": "2.2.1",
+    "version": "2.2.6",
     "license": {
       "name": "BSD-3-Clause",
       "url": "https://forge.etsi.org/legal-matters"
@@ -19,10 +19,6 @@
       "variables": {}
     }
   ],
-  "externalDocs": {
-    "description": "ETSI MEC028 V2.2.1 WLAN Information API",
-    "url": "https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.02.01_60/gs_mec028v020201p.pdf"
-  },
   "tags": [
     {
       "name": "wai"
@@ -1902,7 +1898,6 @@
             "description": "Basic Service Set Identifier (BSSID) is a unique identifier assigned to the Access Point (as network interface controller) for communications at the data link layer of a network segment. BSSID is typically set to an access point's MAC address."
           },
           "ipAddress": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -1910,7 +1905,6 @@
             "description": "IPv4 or IPv6 address allocated for the Access Point."
           },
           "ssid": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -1931,7 +1925,6 @@
             "description": "Basic Service Set Identifier (BSSID) is a unique Identifier assigned to an Access Point (as network interface controller) for communications at the data link layer of a network segment. BSSID is typically set to an access point's MAC address."
           },
           "ipAddress": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -1939,7 +1932,6 @@
             "description": "IPv4 or IPv6 address allocated for the Access Point."
           },
           "ssid": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -2014,7 +2006,6 @@
                 "$ref": "#/components/schemas/ApIdentity"
               },
               "staId": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/StaIdentity"
@@ -2047,7 +2038,8 @@
                 "$ref": "#/components/schemas/ApIdentity"
               },
               "callbackReference": {
-                "type": "string"
+                "type": "string",
+                "description": "URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "expiryDeadline": {
                 "$ref": "#/components/schemas/TimeStamp"
@@ -2057,15 +2049,16 @@
               },
               "notificationPeriod": {
                 "type": "integer",
-                "description": "Set for periodic notification reporting.\nValue indicates the notification period in seconds.",
+                "description": "Set for periodic notification reporting.Value indicates the notification period in seconds.",
                 "contentEncoding": "int32"
               },
               "requestTestNotification": {
                 "type": "boolean",
-                "description": "Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications."
+                "description": "Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "websockNotifConfig": {
-                "$ref": "#/components/schemas/WebsockNotifConfig"
+                "$ref": "#/components/schemas/WebsockNotifConfig",
+                "description": "Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a."
               }
             }
           }
@@ -2084,7 +2077,7 @@
         "properties": {
           "antennaId": {
             "type": "integer",
-            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in section 9.4.2.40 of IEEE 802.11-2016 [8].",
+            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "bssid": {
@@ -2102,7 +2095,7 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "parentTsf": {
@@ -2112,7 +2105,7 @@
           },
           "rcpi": {
             "type": "integer",
-            "description": "RCPI indicates the received channel power of the Beacon, Measurement Pilot, or Probe Response frame, which is a logarithmic function of the received signal power, as defined in section 9.4.2.38 of IEEE 802.11-2016 [8].",
+            "description": "RCPI indicates the received channel power of the Beacon, Measurement Pilot, or Probe Response frame, which is a logarithmic function of the received signal power, as defined in clause .4.2.38 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "reportedFrameInfo": {
@@ -2120,7 +2113,7 @@
           },
           "rsni": {
             "type": "integer",
-            "description": "RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in section 9.4.2.41 of IEEE 802.11-2016 [8].",
+            "description": "RSNI indicates the received signal-to-noise indication for the Beacon, Measurement Pilot, or Probe Response frame, as described in clause 9.4.2.41 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "ssid": {
@@ -2142,12 +2135,12 @@
         "properties": {
           "reportingCondition": {
             "type": "integer",
-            "description": "Reporting condition for the Beacon Report as per Table 9-89 of IEEE 802.11-2016 [8]:\n0 = Report to be issued after each measurement.\n1 = measured RCPI level is greater than the threshold.\n2 = measured RCPI level is less than the threshold.\n3 = measured RSNI level is greater than the threshold.\n4 = measured RSNI level is less than the threshold.\n5 = measured RCPI level is greater than a threshold defined by an offset from the serving AP's reference RCPI.\n6 = measured RCPI level is less than a threshold defined by an offset from the serving AP's reference RCPI.\n7 = measured RSNI level is greater than a threshold defined by an offset from the serving AP's reference RSNI.\n8 = measured RSNI level is less than a threshold defined by an offset from the serving AP's reference RSNI.\n9 = measured RCPI level is in a range bound by the serving AP's reference RCPI and an offset from the serving AP's reference RCPI.\n10 = measured RSNI level is in a range bound by the serving AP's reference RSNI and an offset from the serving AP's reference RSNI.",
+            "description": "Reporting condition for the Beacon Report as per Table 9-89 of IEEE 802.11-2016:\n0 = Report to be issued after each measurement.\n1 = measured RCPI level is greater than the threshold.\n2 = measured RCPI level is less than the threshold.\n3 = measured RSNI level is greater than the threshold.\n4 = measured RSNI level is less than the threshold.\n5 = measured RCPI level is greater than a threshold defined by an offset from the serving AP's reference RCPI.\n6 = measured RCPI level is less than a threshold defined by an offset from the serving AP's reference RCPI.\n7 = measured RSNI level is greater than a threshold defined by an offset from the serving AP's reference RSNI.\n8 = measured RSNI level is less than a threshold defined by an offset from the serving AP's reference RSNI.\n9 = measured RCPI level is in a range bound by the serving AP's reference RCPI and an offset from the serving AP's reference RCPI.\n10 = measured RSNI level is in a range bound by the serving AP's reference RSNI and an offset from the serving AP's reference RSNI.",
             "contentEncoding": "int32"
           },
           "threshold": {
             "type": "integer",
-            "description": "The threshold subfield contains either the threshold value or the offset value to be used for conditional reporting.\n\nFor reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in section 9.4.2.38 of IEEE 802.11-2016 [8].\n\nFor reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in section 9.4.2.41 of IEEE 802.11-2016 [8].\n\nFor reportingCondition subfield values 5 to 10, the offset value is an 8-bit 2s complement integer in units of 0,5 dBm. The indicated reporting condition applies individually to each measured Beacon, Measurement Pilot, or Probe Response frame.",
+            "description": "The threshold subfield contains either the threshold value or the offset value to be used for conditional reporting.\n\nFor reportingCondition subfield with values 1 and 2, the threshold value is a logarithmic function of the received signal power, as defined in clause 9.4.2.38 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 3 and 4, the threshold value is a logarithmic function of the signal-to-noise ratio, as described in clause 9.4.2.41 of IEEE 802.11-2016 .\n\nFor reportingCondition subfield values 5 to 10, the offset value is an 8-bit 2s complement integer in units of 0,5 dBm. The indicated reporting condition applies individually to each measured Beacon, Measurement Pilot, or Probe Response frame.",
             "contentEncoding": "int32"
           }
         }
@@ -2171,7 +2164,7 @@
           },
           "channelId": {
             "type": "integer",
-            "description": "Channel number to scan. A Channel Number of 0 indicates a request to make iterative measurements for all supported channels in the Operating Class where the measurement is permitted on the channel and the channel is valid for the current regulatory domain. A Channel Number of 255 indicates a request to make iterative measurements for all supported channels in the current Operating Class listed in the latest AP Channel Report received from the serving AP.",
+            "description": "Channel number to scan. A Channel Number of 0 indicates a request to make iterative measurements for all supported channels in the Operating Class where the measurement is permitted on the channel and the channel is valid for the current regulatory domain. A Channel Number of 255 indicates a request to make iterative measurements for all supported channels in the current Operating Class listed in the latest AP Channel Report received from the serving AP.",
             "contentEncoding": "int32"
           },
           "measurementMode": {
@@ -2181,7 +2174,7 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 [8].",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.112016 .",
             "contentEncoding": "int32"
           },
           "ssid": {
@@ -2244,7 +2237,7 @@
           },
           "channelUtilization": {
             "type": "integer",
-            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism.",
+            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP sensed the medium was busy, as indicated by either the physical or virtual Carrier Sense (CS) mechanism.",
             "contentEncoding": "int32"
           },
           "staCount": {
@@ -2315,7 +2308,7 @@
           },
           "channelLoad": {
             "type": "integer",
-            "description": "Proportion of measurement duration for which the measuring STA determined the channel to be busy, as a percentage of time, linearly scaled with 255 representing 100 %.",
+            "description": "Proportion of measurement duration for which the measuring STA determined the channel to be busy, as a percentage of time, linearly scaled with 255 representing 100 %.",
             "contentEncoding": "int32"
           },
           "measurementDuration": {
@@ -2329,7 +2322,7 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 .",
             "contentEncoding": "int32"
           },
           "staId": {
@@ -2352,12 +2345,12 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "reportingCondition": {
             "type": "integer",
-            "description": "Reporting condition for the Beacon Report as per Table 9-153 of IEEE 802.11-2016 [8]:\n0 = Report to be issued after each measurement.\n1 = Report to be issued when Channel Load is greater than or equal to the threshold.\n2 = Report to be issued when Channel Load is less than or equal to the threshold.\n\nIf this optional field is not provided, channel load report should be issued after each measurement (reportingCondition = 0).",
+            "description": "Reporting condition for the Beacon Report as per Table 9-153 of IEEE 802.11-2016:\n0 = Report to be issued after each measurement.\n1 = Report to be issued when Channel Load is greater than or equal to the threshold.\n2 = Report to be issued when Channel Load is less than or equal to the threshold.\n\nIf this optional field is not provided, channel load report should be issued after each measurement (reportingCondition = 0).",
             "contentEncoding": "int32"
           },
           "threshold": {
@@ -2464,7 +2457,7 @@
           },
           "ca33": {
             "type": "string",
-            "description": "Seat (desk.cubicle, workstation)"
+            "description": "Seat (desk.cubicle, workstation, etc.)"
           },
           "ca34": {
             "type": "string",
@@ -2522,32 +2515,32 @@
         "properties": {
           "ExtScMcsCap": {
             "type": "integer",
-            "description": "Extended SC MCS capabilities as defined in IEEE 802.11-2016 [8].",
+            "description": "Extended SC MCS capabilities as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "dmgApOrPcpCapInfo": {
             "type": "integer",
-            "description": "DMG AP or PCP capabilities information as defined in IEEE 802.11-2016 [8].",
+            "description": "DMG AP or PCP capabilities information as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "dmgStaBeamTrackTimeLimit": {
             "type": "integer",
-            "description": "DMG station beam tracking time limit as defined in IEEE 802.11-2016 [8].",
+            "description": "DMG station beam tracking time limit as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "dmgStaCapInfo": {
             "type": "integer",
-            "description": "DMG station capabilities information as defined in IEEE 802.11-2016 [8].",
+            "description": "DMG station capabilities information as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "maxNrBasicAmsduSubframes": {
             "type": "integer",
-            "description": "Number of basic A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016 [8].",
+            "description": "Number of basic A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "maxNrShortAmsduSubframes": {
             "type": "integer",
-            "description": "Number of short A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016 [8].",
+            "description": "Number of short A-MSDU subframes in A-MSDU as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           }
         }
@@ -2632,7 +2625,7 @@
           },
           "spatStreamUnderUtil": {
             "type": "integer",
-            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP has underutilized spatial domain resources for given busy time of the medium.",
+            "description": "The percentage of time, linearly scaled with 255 representing 100 %, that the AP has underutilized spatial domain resources for given busy time of the medium.",
             "contentEncoding": "int32"
           }
         }
@@ -2650,42 +2643,42 @@
         "properties": {
           "altitude": {
             "type": "integer",
-            "description": "The altitude value of location as defined in IETF RFC 6225 [6]",
+            "description": "The altitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "altitudeType": {
             "type": "integer",
-            "description": "The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225 [6]",
+            "description": "The type description for altitude information e.g. floors or meters as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "altitudeUncertainty": {
             "type": "integer",
-            "description": "The uncertainty for altitude information as defined in IETF RFC 6225 [6]",
+            "description": "The uncertainty for altitude information as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "datum": {
             "type": "integer",
-            "description": "The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225 [6]",
+            "description": "The datum value to express how coordinates are organized and related to real world as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "lat": {
             "type": "integer",
-            "description": "The latitude value of location as defined in IETF RFC 6225 [6]",
+            "description": "The latitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "latUncertainty": {
             "type": "integer",
-            "description": "The uncertainty for Latitude information as defined in IETF RFC 6225 [6]",
+            "description": "The uncertainty for Latitude information as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "long": {
             "type": "integer",
-            "description": "The longitude value of location as defined in IETF RFC 6225 [6]",
+            "description": "The longitude value of location as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           },
           "longUncertainty": {
             "type": "integer",
-            "description": "The uncertainty for Longitude information as defined in IETF RFC 6225 [6]",
+            "description": "The uncertainty for Longitude information as defined in IETF RFC 6225",
             "contentEncoding": "int32"
           }
         }
@@ -2730,32 +2723,32 @@
         "properties": {
           "ampduParameters": {
             "type": "integer",
-            "description": "A-MPDU parameters as defined in IEEE 802.11-2016 [8].",
+            "description": "A-MPDU parameters as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "aselCap": {
             "type": "integer",
-            "description": "ASEL capabilities as defined in IEEE 802.11-2016 [8].",
+            "description": "ASEL capabilities as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "htCapabilityInfo": {
             "type": "integer",
-            "description": "HT Capability Information as defined in IEEE 802.11-2016 [8].",
+            "description": "HT Capability Information as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "htExtendedCap": {
             "type": "integer",
-            "description": "Extended HT Capabilities as defined in IEEE 802.11-2016 [8].",
+            "description": "Extended HT Capabilities as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "supportedMcsSet": {
             "type": "integer",
-            "description": "Supported MCS set as defined in IEEE 802.11-2016 [8].",
+            "description": "Supported MCS set as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "txBeamFormCap": {
             "type": "integer",
-            "description": "Transmit Beamforming Capabilities as defined in IEEE 802.11-2016 [8].",
+            "description": "Transmit Beamforming Capabilities as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           }
         }
@@ -2792,7 +2785,6 @@
             "$ref": "#/components/schemas/MeasurementInfo"
           },
           "staId": {
-            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StaIdentity"
@@ -2832,7 +2824,7 @@
           },
           "measurementDuration": {
             "type": "integer",
-            "description": "Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in section 11.11.4 of IEEE 802.11-2016 [8]. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
+            "description": "Duration of the measurement in Time Units (TUs) of 1 024 µs, as defined in clause 11.11.4 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
             "contentEncoding": "int32"
           },
           "neighborReportConf": {
@@ -2840,7 +2832,7 @@
           },
           "randomInterval": {
             "type": "integer",
-            "description": "Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in section 11.11.3 of IEEE 802.11-2016 [8]. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
+            "description": "Random interval to be used for starting the measurement in TUs of 1 024 µs, as specified in clause 11.11.3 of IEEE 802.11-2016. If not provided, the underlying system may utilize a default configuration that will be indicated in resulting measurement reports.",
             "contentEncoding": "int32"
           },
           "staStatisticsConf": {
@@ -2858,36 +2850,32 @@
             "type": "object",
             "properties": {
               "beaconReport": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/BeaconReport"
                 },
-                "description": "Beacon Report as defined in IEEE 802.11-2016 [8]."
+                "description": "Beacon Report as defined in IEEE 802.11-2016."
               },
               "channelLoad": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/ChannelLoad"
                 },
-                "description": "Channel Load reports as seen by the station as defined in IEEE 802.11-2016 [8]."
+                "description": "Channel Load reports as seen by the station as defined in IEEE 802.11-2016."
               },
               "neighborReport": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/NeighborReport"
                 },
-                "description": "Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016 [8]."
+                "description": "Neighbor Report providing information about neighbor Access Points seen by the station as defined in IEEE 802.112016."
               },
               "staStatistics": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/StaStatistics"
                 },
-                "description": "STA Statistics Report as defined in IEEE 802.11-2016 [8]."
+                "description": "STA Statistics Report as defined in IEEE 802.11-2016."
               },
               "timeStamp": {
                 "$ref": "#/components/schemas/TimeStamp"
@@ -2914,7 +2902,8 @@
                 "$ref": "#/components/schemas/Links"
               },
               "callbackReference": {
-                "type": "string"
+                "type": "string",
+                "description": "URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "expiryDeadline": {
                 "$ref": "#/components/schemas/TimeStamp"
@@ -2928,10 +2917,9 @@
               },
               "requestTestNotification": {
                 "type": "boolean",
-                "description": "Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications."
+                "description": "Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "staId": {
-                "minItems": 1,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/StaIdentity"
@@ -2939,7 +2927,8 @@
                 "description": "Identifier(s) to uniquely specify the target client station(s) for the subscription."
               },
               "websockNotifConfig": {
-                "$ref": "#/components/schemas/WebsockNotifConfig"
+                "$ref": "#/components/schemas/WebsockNotifConfig",
+                "description": "Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a."
               }
             }
           }
@@ -2959,7 +2948,7 @@
         "properties": {
           "bssTransitionCandidatePreference": {
             "type": "integer",
-            "description": "Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016 [8].",
+            "description": "Relative value indicating the preferred ordering for this BSS as a transition candidate for roaming. 255 indicating the most preferred candidate and 1 indicating the least preferred candidate, as defined in Table 9-152 within IEEE 802.112016.",
             "contentEncoding": "int32"
           },
           "bssid": {
@@ -2971,7 +2960,7 @@
           },
           "channel": {
             "type": "integer",
-            "description": "Channel field indicates a channel number, which is interpreted in the context of the indicated operating class. Channel numbers are defined in Annex E within IEEE 802.11-2016 [8].",
+            "description": "Channel field indicates a channel number, which is interpreted in the context of the indicated operating class. Channel numbers are defined in Annex E within IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "measurementId": {
@@ -2980,12 +2969,12 @@
           },
           "operatingClass": {
             "type": "integer",
-            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016 [8].",
+            "description": "Operating Class field indicates an operating class value as defined in Annex E within IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "phyType": {
             "type": "integer",
-            "description": "PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016 [8].\n2 = dsss\n4 = ofdm\n5 = hrdsss\n6 = erp\n7 = ht\n8 = dmg\n9 = vht\n10 = tvht",
+            "description": "PHY type of the AP indicated by this BSSID. It is an integer value coded according to the value of the dot11PHYType, Annex C within IEEE 802.11-2016.\n2 = dsss\n4 = ofdm\n5 = hrdsss\n6 = erp\n7 = ht\n8 = dmg\n9 = vht\n10 = tvht",
             "contentEncoding": "int32"
           },
           "staId": {
@@ -3017,7 +3006,7 @@
         "properties": {
           "allocatedTrafficSelfMean": {
             "type": "integer",
-            "description": "Mean of allocated traffic from this AP (BSS) in units of 32 µs per second.",
+            "description": "Mean of allocated traffic from this AP (BSS) in units of 32 µs per second.",
             "contentEncoding": "int32"
           },
           "allocatedTrafficSelfStdDev": {
@@ -3259,7 +3248,6 @@
             "type": "object",
             "properties": {
               "staDataRate": {
-                "minItems": 0,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/StaDataRate"
@@ -3289,7 +3277,8 @@
                 "$ref": "#/components/schemas/Links"
               },
               "callbackReference": {
-                "type": "string"
+                "type": "string",
+                "description": "URI exposed by the client on which to receive notifications via HTTP. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "expiryDeadline": {
                 "$ref": "#/components/schemas/TimeStamp"
@@ -3299,15 +3288,14 @@
               },
               "notificationPeriod": {
                 "type": "integer",
-                "description": "Set for periodic notification reporting.\nValue indicates the notification period in seconds.",
+                "description": "Set for periodic notification reporting.Value indicates the notification period in seconds.",
                 "contentEncoding": "int32"
               },
               "requestTestNotification": {
                 "type": "boolean",
-                "description": "Set to TRUE by the service consumer to request a test notification on the callbackReference URI to determine if it is reachable by the WAIS for notifications."
+                "description": "Set to TRUE by the service consumer to request a test notification via HTTP on the callbackReference URI, as specified in ETSI GS MEC 009, clause 6.12a."
               },
               "staId": {
-                "minItems": 1,
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/StaIdentity"
@@ -3315,7 +3303,8 @@
                 "description": "Identifier(s) to uniquely specify the target client station(s) for the subscription."
               },
               "websockNotifConfig": {
-                "$ref": "#/components/schemas/WebsockNotifConfig"
+                "$ref": "#/components/schemas/WebsockNotifConfig",
+                "description": "Provides details to negotiate and signal the use of a Websocket connection between the WAIS and the service consumer for notifications. At least one of callbackReference and websockNotifConfig shall be provided by the service consumer. If both are provided, it is up to WAIS to select an alternative and return only that alternative in the response, as specified in ETSI GS MEC 009, clause 6.12a"
               }
             }
           }
@@ -3333,7 +3322,6 @@
             "description": "Number which identifies a particular association between a station and an Access Point"
           },
           "ipAddress": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -3345,7 +3333,6 @@
             "description": "Unique identifier assigned to station (as network interface controller) for communications at the data link layer of a network segment."
           },
           "ssid": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -3365,12 +3352,11 @@
             "$ref": "#/components/schemas/ApAssociated"
           },
           "beaconReport": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BeaconReport"
             },
-            "description": "Beacon Report as defined in IEEE 802.11-2016 [8]."
+            "description": "Beacon Report as defined in IEEE 802.11-2016."
           },
           "channel": {
             "type": "integer",
@@ -3378,20 +3364,18 @@
             "contentEncoding": "int32"
           },
           "channelLoad": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ChannelLoad"
             },
-            "description": "Channel Load reports as seen by the station as defined IEEE 802.11-2016 [8]. Channel Load reports may be configured for any channel, including the station's current channel for association."
+            "description": "Channel Load reports as seen by the station as defined IEEE 802.11-2016. Channel Load reports may be configured for any channel, including the station's current channel for association."
           },
           "neighborReport": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/NeighborReport"
             },
-            "description": "Information about neighbor Access Points seen by the station as defined IEEE 802.11-2016 [8]."
+            "description": "Information about neighbor Access Points seen by the station as defined IEEE 802.11-2016."
           },
           "rssi": {
             "$ref": "#/components/schemas/Rssi"
@@ -3403,12 +3387,11 @@
             "$ref": "#/components/schemas/StaIdentity"
           },
           "staStatistics": {
-            "minItems": 0,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/StaStatistics"
             },
-            "description": "Statistics as defined in IEEE 802.11-2016 [8] for the client station collected over measurement duration."
+            "description": "Statistics as defined in IEEE 802.11-2016 for the client station collected over measurement duration."
           },
           "timeStamp": {
             "$ref": "#/components/schemas/TimeStamp"
@@ -3429,7 +3412,7 @@
           },
           "groupIdentity": {
             "type": "integer",
-            "description": "Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016 [8].\nDepending on group identity, one and only one of the STA Statistics Group Data will be present.",
+            "description": "Indicates the requested statistics group describing the Statistics Group Data according to Table 9-114 of IEEE 802.11-2016.\nDepending on group identity, one and only one of the STA Statistics Group Data will be present.",
             "contentEncoding": "int32"
           },
           "groupOneData": {
@@ -3462,7 +3445,7 @@
         "properties": {
           "groupIdentity": {
             "type": "integer",
-            "description": "As per Table 9-92 of IEEE 802.11-2016 [8].",
+            "description": "As per Table 9-92 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "measurementCount": {
@@ -3739,12 +3722,12 @@
         "properties": {
           "vhtCapInfo": {
             "type": "integer",
-            "description": "VHT capabilities Info as defined in IEEE 802.11-2016 [8].",
+            "description": "VHT capabilities Info as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "vhtMcsNss": {
             "type": "integer",
-            "description": "Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016 [8].",
+            "description": "Supported VHT-MCS and NSS Set as defined in IEEE 802.11-2016.",
             "contentEncoding": "int32"
           }
         }
@@ -3763,7 +3746,7 @@
         "properties": {
           "downlinkLoad": {
             "type": "integer",
-            "description": "1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.",
+            "description": "1-octet positive integer representing the current percentage loading of the downlink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval the duration of which is reported in Load Measurement Duration. In cases where the downlink load is unknown to the AP, the value is set to zero.",
             "contentEncoding": "int32"
           },
           "downlinkSpeed": {
@@ -3778,7 +3761,7 @@
           },
           "uplinkLoad": {
             "type": "integer",
-            "description": "1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.",
+            "description": "1-octet positive integer representing the current percentage loading of the uplink WAN connection, scaled linearly with 255 representing 100 %, as measured over an interval, the duration of which is reported in Load Measurement Duration. In cases where the uplink load is unknown to the AP, the value is set to zero.",
             "contentEncoding": "int32"
           },
           "uplinkSpeed": {
