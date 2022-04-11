@@ -21,7 +21,8 @@
   ],
   "tags": [
     {
-      "name": "wai"
+      "name": "wai",
+      "description": "WLAN Access Information"
     }
   ],
   "paths": {
@@ -754,6 +755,9 @@
                 "responses": {
                   "204": {
                     "description": "No content"
+                  },
+                  "400": {
+                    "description": "Bad Request"
                   }
                 }
               }
@@ -2077,7 +2081,7 @@
         "properties": {
           "antennaId": {
             "type": "integer",
-            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.",
+            "description": "The Antenna ID field contains the identifying number for the antenna(s) used for this measurement. Antenna ID is defined in clause 9.4.2.40 of IEEE 802.11-2016.",
             "contentEncoding": "int32"
           },
           "bssid": {
@@ -3825,9 +3829,9 @@
         "discriminator": {
           "propertyName": "notificationType",
           "mapping": {
-            "AssocStaNotification": "AssocStaNotification",
-            "MeasurementReportNotification": "MeasurementReportNotification",
-            "StaDataRateNotification": "StaDataRateNotification"
+            "AssocStaNotification": "#/components/schemas/AssocStaNotification",
+            "MeasurementReportNotification": "#/components/schemas/MeasurementReportNotification",
+            "StaDataRateNotification": "#/components/schemas/StaDataRateNotification"
           }
         }
       },
@@ -3845,9 +3849,9 @@
         "discriminator": {
           "propertyName": "subscriptionType",
           "mapping": {
-            "AssocStaSubscription": "AssocStaSubscription",
-            "MeasurementReportSubscription": "MeasurementReportSubscription",
-            "StaDataRateSubscription": "StaDataRateSubscription"
+            "AssocStaNotification": "#/components/schemas/AssocStaNotification",
+            "MeasurementReportNotification": "#/components/schemas/MeasurementReportNotification",
+            "StaDataRateNotification": "#/components/schemas/StaDataRateNotification"
           }
         }
       },
