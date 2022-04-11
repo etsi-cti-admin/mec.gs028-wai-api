@@ -15,6 +15,7 @@ servers:
 
 tags:
 - name: wai
+  description: WLAN Access Information
 
 paths:
   /queries/ap/ap_information:
@@ -494,6 +495,8 @@ paths:
               responses:
                 '204':
                  description: "No content"
+                '400':
+                 description: "Bad Request"
 
 
     parameters: []
@@ -2747,9 +2750,9 @@ components:
       discriminator:
         propertyName: notificationType
         mapping:
-          AssocStaNotification: AssocStaNotification
-          MeasurementReportNotification: MeasurementReportNotification
-          StaDataRateNotification: StaDataRateNotification
+          AssocStaNotification: '#/components/schemas/AssocStaNotification'
+          MeasurementReportNotification: '#/components/schemas/MeasurementReportNotification'
+          StaDataRateNotification: '#/components/schemas/StaDataRateNotification'
     InlineSubscription:
       title: InlineSubscription
       required:
@@ -2761,9 +2764,9 @@ components:
       discriminator:
         propertyName: subscriptionType
         mapping:
-          AssocStaSubscription: AssocStaSubscription
-          MeasurementReportSubscription: MeasurementReportSubscription
-          StaDataRateSubscription: StaDataRateSubscription
+          AssocStaNotification: '#/components/schemas/AssocStaNotification'
+          MeasurementReportNotification: '#/components/schemas/MeasurementReportNotification'
+          StaDataRateNotification: '#/components/schemas/StaDataRateNotification'
     Links:
       title: Links
       required:
