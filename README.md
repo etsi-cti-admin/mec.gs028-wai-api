@@ -3,9 +3,13 @@
 This repository contains OpenAPIs descriptions for the interfaces specified in ETSI MEC GS 028
 
 ## Online resources
+* [Specification document] (https://www.etsi.org/deliver/etsi_gs/MEC/001_099/028/02.03.01_60/gs_mec028v020301p.pdf)
 
-* [Navigate the API in the browser](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/mec/gs028-wai-api/raw/v2.3.1/WlanInformationApi.yaml).
-* [Edit the API online](https://redocly.github.io/redoc/?url=https://forge.etsi.org/rep/mec/gs028-wai-api/raw/v2.3.1/WlanInformationApi.yaml&nocors).
+## Navigate with Swagger UI
+* [WLAN Information API](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/mec/gs028-wai-api/raw/v2.3.1/WlanInformationApi.yaml).
+
+## Navigate with Redocly
+* [WLAN Information API](https://redocly.github.io/redoc/?url=https://forge.etsi.org/rep/mec/gs028-wai-api/raw/v2.3.1/WlanInformationApi.yaml&nocors).
 
 ## License
 
